@@ -1,259 +1,2306 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sistem Keuangan Kas Warga RT06</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
-    <meta name="theme-color" content="#556b2f">
-    <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<title>Portal Resmi & Keuangan RT 06</title>
 
-    <style>
-        :root {
-            /* Palette Olive & Gold (Mode Terang) */
-            --bg-main: linear-gradient(135deg, #f5f5dc 0%, #e6e8d2 50%, #d4af37 100%);
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --card-border: rgba(184, 134, 11, 0.25);
-            --text-main: #2b3214;
-            --text-sub: #5c6340;
-            --olive-primary: #556b2f;
-            --olive-dark: #3b4b20;
-            --gold-accent: #d4af37;
-            --gold-dark: #b8860b;
-            --gold-light: #fef9e7;
-            --green-accent: #2e7d32;
-            --green-light: #e8f5e9;
-            --red-accent: #c62828;
-            --red-light: #ffebee;
-            --shadow-sm: 0 2px 4px rgba(85, 107, 47, 0.08);
-            --shadow-md: 0 4px 10px rgba(85, 107, 47, 0.12);
-            --shadow-lg: 0 10px 20px rgba(85, 107, 47, 0.18);
-            --radius-card: 16px;
-            --radius-btn: 12px;
-        }
+<meta name="theme-color" content="#556b2f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
 
-        body.dark {
-            /* Palette Olive & Gold (Mode Gelap) */
-            --bg-main: linear-gradient(135deg, #1c220f 0%, #2b3214 50%, #4a3e10 100%);
-            --card-bg: rgba(35, 43, 20, 0.88);
-            --card-border: rgba(212, 175, 55, 0.2);
-            --text-main: #f5f5dc;
-            --text-sub: #c2c8a6;
-            --gold-light: rgba(212, 175, 55, 0.15);
-            --green-light: rgba(46, 125, 50, 0.2);
-            --red-light: rgba(198, 40, 40, 0.2);
-        }
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg-main); background-attachment: fixed; color: var(--text-main); min-height: 100vh; padding-bottom: 90px; }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-        .container { max-width: 600px; margin: 0 auto; padding: 16px; }
+<style>
+:root{
+    --bg:#f5f6ee;
+    --bg-soft:#edf0df;
+    --card:#fff;
+    --card-soft:#f8f9f3;
+    --border:#e1e5d5;
+    --text:#252b18;
+    --muted:#727963;
+    --primary:#556b2f;
+    --primary-dark:#3d4d22;
+    --primary-soft:#edf3df;
+    --gold:#c59a20;
+    --green:#2e7d32;
+    --green-soft:#e8f5e9;
+    --red:#c62828;
+    --red-soft:#ffebee;
+    --blue:#2563eb;
+    --blue-soft:#eaf1ff;
+    --shadow:0 5px 20px rgba(50,60,25,.07);
+    --shadow-lg:0 12px 35px rgba(50,60,25,.12);
+    --radius:18px;
+    --nav-height:70px;
+}
 
-        /* Top Header */
-        .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .app-title { font-size: 1.25rem; font-weight: 800; color: var(--text-main); }
-        .app-subtitle { font-size: 0.75rem; color: var(--text-sub); }
+body.dark{
+    --bg:#15190f;
+    --bg-soft:#1d2415;
+    --card:#222a18;
+    --card-soft:#28301d;
+    --border:#384127;
+    --text:#f2f4e7;
+    --muted:#abb39a;
+    --primary-soft:#29361d;
+    --green-soft:#1c3520;
+    --red-soft:#3b2022;
+    --blue-soft:#1d2b48;
+}
 
-        /* Balance Card (Gold & Olive Gradient) */
-        .balance-card { 
-            background: linear-gradient(135deg, #556b2f 0%, #3b4b20 50%, #b8860b 100%); 
-            color: #ffffff; 
-            padding: 20px; 
-            border-radius: var(--radius-card); 
-            box-shadow: var(--shadow-lg); 
-            margin-bottom: 16px; 
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        .balance-label { font-size: 0.8rem; opacity: 0.9; font-weight: 600; color: #fdf8e2; }
-        .balance-amount { font-size: 1.8rem; font-weight: 800; margin: 6px 0 16px; color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .balance-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .stat-item p { font-size: 0.7rem; opacity: 0.85; color: #f5f5dc; }
-        .stat-item h4 { font-size: 0.95rem; font-weight: 700; margin-top: 2px; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    -webkit-tap-highlight-color:transparent;
+}
 
-        /* Section Cards */
-        .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-card); padding: 16px; margin-bottom: 16px; box-shadow: var(--shadow-sm); backdrop-filter: blur(10px); }
-        .card-header { font-size: 0.9rem; font-weight: 700; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
+html{scroll-behavior:smooth}
 
-        /* Form Control UX */
-        .form-group { display: flex; flex-direction: column; gap: 12px; }
-        .input-control { width: 100%; padding: 12px 14px; border-radius: var(--radius-btn); border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-main); font-size: 0.9rem; outline: none; transition: all 0.2s; }
-        .input-control:focus { border-color: var(--gold-dark); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top right,rgba(197,154,32,.12),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    padding-bottom:calc(var(--nav-height) + 20px);
+}
 
-        .btn { width: 100%; padding: 12px; border-radius: var(--radius-btn); border: none; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
-        .btn-primary { background: linear-gradient(135deg, var(--olive-primary) 0%, var(--olive-dark) 100%); color: #fff; box-shadow: 0 4px 12px rgba(85, 107, 47, 0.3); }
-        .btn-primary:active { transform: scale(0.98); }
-        .btn-sm { width: auto; padding: 6px 12px; font-size: 0.75rem; border-radius: 8px; }
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
 
-        /* Bottom Nav UI (Olive & Gold Theme) */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card-bg); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; padding: 10px 0 14px; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); z-index: 100; backdrop-filter: blur(12px); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; border: none; background: transparent; color: var(--text-sub); font-size: 0.7rem; font-weight: 600; cursor: pointer; flex: 1; }
-        .nav-item.active { color: var(--gold-dark); font-weight: 800; }
-        .nav-icon { font-size: 1.2rem; }
+.container{
+    width:100%;
+    max-width:680px;
+    margin:auto;
+    padding:14px;
+}
 
-        /* List Items & Badges */
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--card-border); }
-        .list-item:last-child { border-bottom: none; }
-        .badge { padding: 4px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 700; }
-        .badge-masuk { background: var(--green-light); color: var(--green-accent); border: 1px solid rgba(46, 125, 50, 0.2); }
-        .badge-keluar { background: var(--red-light); color: var(--red-accent); border: 1px solid rgba(198, 40, 40, 0.2); }
+/* HEADER */
+.app-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:14px;
+}
 
-        /* KK Grid UX */
-        .kk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
-        .kk-card { background: rgba(0, 0, 0, 0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 12px; text-align: center; }
-        .kk-status { display: inline-block; margin-top: 6px; font-size: 0.65rem; font-weight: 800; padding: 2px 8px; border-radius: 10px; }
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
 
-        .hidden { display: none !important; }
-    </style>
+.brand-icon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:#fff;
+    font-size:20px;
+    box-shadow:0 5px 14px rgba(85,107,47,.25);
+}
+
+.app-title{
+    font-size:1.05rem;
+    font-weight:800;
+    letter-spacing:-.02em;
+}
+
+.app-subtitle{
+    margin-top:2px;
+    font-size:.68rem;
+    color:var(--muted);
+    font-weight:600;
+}
+
+.header-actions{
+    display:flex;
+    gap:6px;
+}
+
+/* BUTTON */
+.btn{
+    border:0;
+    min-height:42px;
+    padding:10px 14px;
+    border-radius:12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    font-size:.76rem;
+    font-weight:800;
+    transition:.2s ease;
+    text-decoration:none;
+}
+
+.btn:active{transform:scale(.96)}
+
+.btn-primary{
+    color:#fff;
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    box-shadow:0 5px 15px rgba(85,107,47,.2);
+}
+
+.btn-danger{
+    color:#fff;
+    background:linear-gradient(135deg,#d83a3a,#9d1515);
+}
+
+.btn-light{
+    color:var(--text);
+    background:var(--card);
+    border:1px solid var(--border);
+}
+
+.btn-gold{
+    color:#fff;
+    background:linear-gradient(135deg,#c59a20,#987313);
+}
+
+.btn-blue{
+    color:#fff;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+}
+
+.btn-sm{
+    min-height:34px;
+    padding:6px 10px;
+    border-radius:9px;
+    font-size:.66rem;
+}
+
+.btn-icon{
+    width:38px;
+    height:38px;
+    padding:0;
+}
+
+/* SALDO */
+.balance-card{
+    position:relative;
+    overflow:hidden;
+    color:#fff;
+    padding:18px;
+    border-radius:22px;
+    margin-bottom:14px;
+    background:
+        radial-gradient(circle at 90% 10%,rgba(255,255,255,.16),transparent 28%),
+        linear-gradient(135deg,#5d7433,#3c4d21 60%,#8e6c16);
+    box-shadow:var(--shadow-lg);
+}
+
+.balance-label{
+    font-size:.65rem;
+    opacity:.85;
+    font-weight:700;
+    letter-spacing:.05em;
+}
+
+.balance-amount{
+    font-size:1.8rem;
+    line-height:1.15;
+    font-weight:800;
+    margin:6px 0 14px;
+    letter-spacing:-.03em;
+}
+
+.balance-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.balance-stat{
+    padding:10px;
+    border-radius:12px;
+    background:rgba(0,0,0,.18);
+    backdrop-filter:blur(8px);
+}
+
+.balance-stat-label{
+    font-size:.6rem;
+    opacity:.8;
+    margin-bottom:2px;
+}
+
+.balance-stat-value{
+    font-size:.8rem;
+    font-weight:800;
+}
+
+/* CARD */
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:15px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow);
+}
+
+.card-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.card-title{
+    font-size:.82rem;
+    font-weight:800;
+}
+
+.card-subtitle{
+    font-size:.64rem;
+    color:var(--muted);
+    margin-top:2px;
+}
+
+/* QUICK */
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-bottom:14px;
+}
+
+.quick-card{
+    padding:12px 8px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    text-align:center;
+    box-shadow:var(--shadow);
+}
+
+.quick-icon{
+    font-size:18px;
+    margin-bottom:4px;
+}
+
+.quick-label{
+    color:var(--muted);
+    font-size:.58rem;
+    font-weight:600;
+}
+
+.quick-value{
+    margin-top:2px;
+    font-size:.75rem;
+    font-weight:800;
+}
+
+/* FORM */
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.input-control{
+    width:100%;
+    min-height:42px;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    outline:none;
+    background:var(--card-soft);
+    color:var(--text);
+    font-size:.76rem;
+    transition:.2s ease;
+}
+
+.input-control:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(85,107,47,.12);
+}
+
+.input-label{
+    display:block;
+    margin-bottom:4px;
+    font-size:.65rem;
+    font-weight:700;
+    color:var(--muted);
+}
+
+textarea.input-control{
+    resize:vertical;
+    min-height:80px;
+}
+
+/* TAB */
+.section-tabs{
+    display:flex;
+    gap:5px;
+    margin-bottom:14px;
+    overflow-x:auto;
+    padding-bottom:4px;
+    scrollbar-width:none;
+}
+
+.section-tabs::-webkit-scrollbar{display:none}
+
+.section-tab{
+    flex:1;
+    min-width:85px;
+    min-height:40px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    background:var(--card);
+    color:var(--muted);
+    font-size:.64rem;
+    font-weight:800;
+    transition:.2s ease;
+    white-space:nowrap;
+    padding:0 8px;
+}
+
+.section-tab.active{
+    color:#fff;
+    background:var(--primary);
+    border-color:var(--primary);
+    box-shadow:0 4px 12px rgba(85,107,47,.18);
+}
+
+/* SEARCH */
+.search-box{
+    position:relative;
+    margin-bottom:10px;
+}
+
+.search-box span{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--muted);
+    font-size:13px;
+}
+
+.search-box input{
+    padding-left:34px;
+}
+
+/* TABLE */
+.table-wrap{
+    overflow-x:auto;
+    margin:0 -4px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.68rem;
+}
+
+th{
+    color:var(--muted);
+    font-size:.58rem;
+    font-weight:800;
+    text-transform:uppercase;
+    padding:8px;
+    white-space:nowrap;
+    border-bottom:1px solid var(--border);
+}
+
+td{
+    padding:10px 8px;
+    border-bottom:1px solid var(--border);
+    vertical-align:middle;
+}
+
+tbody tr:last-child td{border-bottom:0}
+
+.transaction-title{
+    font-weight:800;
+    color:var(--text);
+}
+
+.transaction-sub{
+    margin-top:2px;
+    color:var(--muted);
+    font-size:.58rem;
+}
+
+.amount{
+    white-space:nowrap;
+    font-weight:800;
+}
+
+.amount.masuk{color:var(--green)}
+.amount.keluar{color:var(--red)}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:3px 7px;
+    border-radius:20px;
+    font-size:.55rem;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.badge-masuk{
+    color:var(--green);
+    background:var(--green-soft);
+}
+
+.badge-keluar{
+    color:var(--red);
+    background:var(--red-soft);
+}
+
+.badge-blue{
+    color:var(--blue);
+    background:var(--blue-soft);
+}
+
+.badge-pending{
+    color:var(--gold);
+    background:rgba(197,154,32,0.15);
+}
+
+/* KK */
+.kk-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.kk-card{
+    padding:11px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:var(--card-soft);
+}
+
+.kk-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:5px;
+}
+
+.kk-name{
+    font-size:.68rem;
+    font-weight:800;
+}
+
+.kk-month{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:.58rem;
+}
+
+/* PENGUMUMAN */
+.info-card-item{
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:var(--card-soft);
+    margin-bottom:10px;
+    position:relative;
+}
+
+.info-card-item:last-child{margin-bottom:0}
+
+.info-tag{
+    display:inline-block;
+    font-size:.56rem;
+    font-weight:800;
+    padding:2px 6px;
+    border-radius:6px;
+    background:var(--primary-soft);
+    color:var(--primary);
+    margin-bottom:5px;
+}
+
+.info-date{
+    font-size:.56rem;
+    color:var(--muted);
+    float:right;
+}
+
+.info-title{
+    font-size:.76rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:4px;
+}
+
+.info-body{
+    font-size:.67rem;
+    color:var(--muted);
+    line-height:1.5;
+}
+
+/* DARURAT */
+.emergency-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.emergency-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px;
+    border-radius:13px;
+    border:1px solid var(--border);
+    background:var(--card-soft);
+    text-decoration:none;
+    color:var(--text);
+    transition:.2s ease;
+}
+
+.emergency-btn:active{transform:scale(.97)}
+
+.emergency-icon{
+    width:34px;
+    height:34px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+    background:var(--red-soft);
+    color:var(--red);
+}
+
+/* CHART */
+.chart-box{
+    height:210px;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:fixed;
+    z-index:1000;
+    left:0;
+    right:0;
+    bottom:0;
+    height:var(--nav-height);
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.95);
+    border-top:1px solid var(--border);
+    backdrop-filter:blur(18px);
+    box-shadow:0 -8px 25px rgba(0,0,0,.06);
+}
+
+body.dark .bottom-nav{
+    background:rgba(34,42,24,.95);
+}
+
+.nav-item{
+    flex:1;
+    height:52px;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    font-size:.54rem;
+    font-weight:700;
+    border-radius:10px;
+}
+
+.nav-icon{
+    font-size:17px;
+    line-height:1;
+}
+
+.nav-item.active{
+    color:var(--primary);
+    background:var(--primary-soft);
+}
+
+body.dark .nav-item.active{
+    color:#c9d99d;
+}
+
+/* MODAL */
+.modal-overlay{
+    position:fixed;
+    z-index:3000;
+    inset:0;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding:12px;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(5px);
+    opacity:0;
+    visibility:hidden;
+    transition:.25s ease;
+}
+
+.modal-overlay.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.modal-card{
+    width:100%;
+    max-width:480px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px 22px 15px 15px;
+    padding:18px;
+    transform:translateY(30px);
+    transition:.25s ease;
+}
+
+.modal-overlay.show .modal-card{
+    transform:translateY(0);
+}
+
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+}
+
+.modal-title{
+    font-size:.88rem;
+    font-weight:800;
+}
+
+/* TOAST */
+#toast{
+    position:fixed;
+    z-index:5000;
+    top:15px;
+    left:50%;
+    transform:translate(-50%,-20px);
+    opacity:0;
+    visibility:hidden;
+    max-width:calc(100% - 30px);
+    padding:9px 14px;
+    border-radius:30px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--text);
+    box-shadow:var(--shadow-lg);
+    font-size:.68rem;
+    font-weight:800;
+    transition:.25s ease;
+}
+
+#toast.show{
+    opacity:1;
+    visibility:visible;
+    transform:translate(-50%,0);
+}
+
+/* LOADER */
+.loader-overlay{
+    position:fixed;
+    inset:0;
+    z-index:4000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.35);
+    backdrop-filter:blur(4px);
+}
+
+.loader-card{
+    padding:16px 18px;
+    border-radius:15px;
+    background:var(--card);
+    color:var(--text);
+    box-shadow:var(--shadow-lg);
+    font-size:.7rem;
+    font-weight:800;
+}
+
+/* STATUS ONLINE */
+.connection-status{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    margin-top:3px;
+    font-size:.55rem;
+    font-weight:700;
+    color:var(--muted);
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#aaa;
+}
+
+.status-dot.online{background:#2e7d32}
+.status-dot.offline{background:#c62828}
+
+/* EMPTY */
+.empty-state{
+    text-align:center;
+    padding:20px 10px;
+    color:var(--muted);
+}
+
+.empty-icon{
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.empty-title{
+    font-size:.72rem;
+    font-weight:800;
+    color:var(--text);
+}
+
+.empty-text{
+    margin-top:3px;
+    font-size:.61rem;
+}
+
+/* LAST SYNC */
+.sync-info{
+    margin-top:8px;
+    text-align:right;
+    font-size:.54rem;
+    color:var(--muted);
+}
+
+/* RESPONSIVE */
+@media(max-width:380px){
+    .container{padding:10px}
+    .balance-amount{font-size:1.55rem}
+    .kk-grid,
+    .emergency-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <!-- Header -->
-    <div class="app-header">
-        <div>
-            <div class="app-title">Kas RT 06</div>
-            <div class="app-subtitle">Sistem Keuangan Olive & Gold</div>
-        </div>
-        <button class="btn btn-sm" onclick="toggleTheme()" style="background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-main);">🌓 Mode</button>
+<!-- LOADER -->
+<div id="loader" class="loader-overlay hidden">
+    <div class="loader-card" id="loader-text">
+        ⏳ Menyinkronkan Portal RT 06...
     </div>
+</div>
 
-    <!-- Ringkasan Saldo (Olive & Gold Gradient Card) -->
-    <div class="balance-card">
-        <div class="balance-label">Sisa Saldo Kas RT</div>
-        <div class="balance-amount" id="stat-saldo">Rp 0</div>
-        <div class="balance-stats">
-            <div class="stat-item">
-                <p>Total Masuk</p>
-                <h4 id="stat-masuk" style="color: #a3e635;">Rp 0</h4>
+<!-- TOAST -->
+<div id="toast">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">Notifikasi</span>
+</div>
+
+<!-- LOGIN MODAL -->
+<div id="modal-login" class="modal-overlay" onclick="closeLoginOutside(event)">
+    <div class="modal-card">
+        <div class="modal-head">
+            <div>
+                <div class="modal-title">Login Pengurus RT 06</div>
+                <div class="card-subtitle">Khusus pengurus untuk input data & edaran</div>
             </div>
-            <div class="stat-item">
-                <p>Total Keluar</p>
-                <h4 id="stat-keluar" style="color: #fca5a5;">Rp 0</h4>
+            <button class="btn btn-light btn-icon" onclick="closeModalLogin()" aria-label="Tutup Modal">✕</button>
+        </div>
+
+        <div class="form-group" id="login-form-box">
+            <div>
+                <label for="login-user" class="input-label">Username</label>
+                <input id="login-user" class="input-control" type="text" autocomplete="username" placeholder="Masukkan username">
             </div>
-        </div>
-    </div>
 
-    <!-- Tab Pemasukan -->
-    <div id="tab-masuk" class="tab-content">
-        <div class="card">
-            <div class="card-header">📥 Catat Iuran Warga</div>
-            <div class="form-group">
-                <input type="text" class="input-control" id="in-nama" placeholder="Nama Warga (cth: Pak Budi)">
-                <select class="input-control" id="in-kat-masuk">
-                    <option value="Iuran Kas Bulanan">Iuran Kas Bulanan</option>
-                    <option value="Iuran Kebersihan">Iuran Kebersihan</option>
-                    <option value="Iuran Keamanan">Iuran Keamanan</option>
-                    <option value="Donatur / Pembangunan">Donatur / Pembangunan</option>
-                </select>
-                <input type="text" class="input-control" id="in-jumlah-masuk" placeholder="Nominal (Rp)" oninput="formatRupiahInput(this)">
-                <button class="btn btn-primary" onclick="tambahPemasukan()">Simpan Iuran</button>
+            <div>
+                <label for="login-pass" class="input-label">Password</label>
+                <input id="login-pass" class="input-control" type="password" autocomplete="current-password" placeholder="Masukkan password">
             </div>
-        </div>
-    </div>
 
-    <!-- Tab Pengeluaran -->
-    <div id="tab-keluar" class="tab-content hidden">
-        <div class="card">
-            <div class="card-header">📤 Catat Pengeluaran Kas</div>
-            <div class="form-group">
-                <input type="text" class="input-control" id="in-ket" placeholder="Keterangan (cth: Perbaikan Lampu)">
-                <select class="input-control" id="in-kat-keluar">
-                    <option value="Kebersihan">Kebersihan</option>
-                    <option value="Keamanan">Keamanan</option>
-                    <option value="Pembangunan">Pembangunan</option>
-                    <option value="Operasional RT">Operasional RT</option>
-                </select>
-                <input type="text" class="input-control" id="in-jumlah-keluar" placeholder="Nominal (Rp)" oninput="formatRupiahInput(this)">
-                <button class="btn btn-primary" style="background: linear-gradient(135deg, #c62828 0%, #8e0000 100%);" onclick="tambahPengeluaran()">Simpan Pengeluaran</button>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
+                <button class="btn btn-light" onclick="closeModalLogin()">Batal</button>
+                <button class="btn btn-primary" onclick="handleLogin()">Masuk</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Tab Status KK -->
-    <div id="tab-kk" class="tab-content hidden">
-        <div class="card">
-            <div class="card-header">🏠 Status Iuran Per KK</div>
-            <div id="kk-container" class="kk-grid"></div>
-        </div>
-    </div>
-
-    <!-- Grafik Ringkasan -->
-    <div class="card">
-        <div class="card-header">📊 Alokasi Pengeluaran</div>
-        <div style="height: 200px;">
-            <canvas id="expenseChart"></canvas>
         </div>
     </div>
 </div>
 
-<!-- Bottom Navigation Bar -->
+<div class="container">
+
+<!-- HEADER -->
+<header class="app-header">
+    <div class="brand">
+        <div class="brand-icon">🏛️</div>
+        <div>
+            <div class="app-title">Portal RT 06</div>
+            <div class="app-subtitle" id="user-role-text">Pusat Informasi & Kas Warga</div>
+            <div class="connection-status">
+                <span id="connection-dot" class="status-dot"></span>
+                <span id="connection-text">Memeriksa koneksi...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-actions">
+        <button class="btn btn-light btn-icon" onclick="toggleTheme()" title="Mode Gelap/Terang" aria-label="Ganti Tema">🌓</button>
+        <button id="btn-auth-action" class="btn btn-primary btn-sm" onclick="openModalLogin()">🔑 Login</button>
+    </div>
+</header>
+
+<!-- SALDO -->
+<section class="balance-card">
+    <div class="balance-label">SISA SALDO KAS WARGA RT 06</div>
+    <div id="stat-saldo" class="balance-amount">Rp 0</div>
+
+    <div class="balance-stats">
+        <div class="balance-stat">
+            <div class="balance-stat-label">TOTAL PEMASUKAN</div>
+            <div id="stat-masuk" class="balance-stat-value">Rp 0</div>
+        </div>
+        <div class="balance-stat">
+            <div class="balance-stat-label">TOTAL PENGELUARAN</div>
+            <div id="stat-keluar" class="balance-stat-value">Rp 0</div>
+        </div>
+    </div>
+</section>
+
+<!-- QUICK INFO -->
+<section class="quick-grid">
+    <div class="quick-card">
+        <div class="quick-icon">👨‍👩‍👧‍👦</div>
+        <div class="quick-label">TOTAL KK</div>
+        <div class="quick-value" id="quick-kk">0 KK</div>
+    </div>
+    <div class="quick-card">
+        <div class="quick-icon">📢</div>
+        <div class="quick-label">PENGUMUMAN</div>
+        <div class="quick-value" id="quick-pengumuman">0 Agenda</div>
+    </div>
+    <div class="quick-card">
+        <div class="quick-icon">📄</div>
+        <div class="quick-label">SURAT E-RT</div>
+        <div class="quick-value">Aktif</div>
+    </div>
+</section>
+
+<!-- TAB -->
+<div class="section-tabs">
+    <button id="tab-button-info" class="section-tab active" onclick="switchNav('info')">📢 Informasi</button>
+    <button id="tab-button-surat" class="section-tab" onclick="switchNav('surat')">📄 E-Surat</button>
+    <button id="tab-button-masuk" class="section-tab" onclick="switchNav('masuk')">📥 Kas Masuk</button>
+    <button id="tab-button-keluar" class="section-tab" onclick="switchNav('keluar')">📤 Kas Keluar</button>
+    <button id="tab-button-kk" class="section-tab" onclick="switchNav('kk')">🏠 Status KK</button>
+</div>
+
+<!-- ========================= TAB INFORMASI ========================= -->
+<section id="tab-info" class="tab-content">
+    <div class="card role-editor-only hidden" id="box-pengumuman-form">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Buat Pengumuman Baru</div>
+                <div class="card-subtitle">Publikasikan edaran atau agenda ke seluruh warga</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label for="in-info-judul" class="input-label">Judul Pengumuman</label>
+                <input id="in-info-judul" class="input-control" type="text" maxlength="100" placeholder="Contoh: Kerja Bakti Kebersihan Selokan">
+            </div>
+
+            <div>
+                <label for="in-info-kat" class="input-label">Kategori</label>
+                <select id="in-info-kat" class="input-control">
+                    <option>Kerja Bakti</option>
+                    <option>Posyandu & Kesehatan</option>
+                    <option>Rapat Warga</option>
+                    <option>Berita Duka</option>
+                    <option>Edaran RT</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="in-info-isi" class="input-label">Isi Pengumuman</label>
+                <textarea id="in-info-isi" class="input-control" rows="3" maxlength="1000" placeholder="Tuliskan rincian agenda, waktu, dan tempat..."></textarea>
+            </div>
+
+            <button class="btn btn-primary" onclick="tambahPengumuman()">📢 Publikasikan Pengumuman</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">📌 Pengumuman & Agenda RT 06</div>
+                <div class="card-subtitle">Informasi kegiatan & edaran resmi lingkungan</div>
+            </div>
+        </div>
+        <div id="pengumuman-list-container"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">🚨 Nomor Darurat & Pengurus</div>
+                <div class="card-subtitle">Panggil cepat saat diperlukan</div>
+            </div>
+        </div>
+
+        <div class="emergency-grid">
+            <a id="wa-rt-link" href="#" target="_blank" rel="noopener noreferrer" class="emergency-btn">
+                <div class="emergency-icon">👨‍✈️</div>
+                <div>
+                    <div style="font-size:.68rem;font-weight:800">Pak RT 06</div>
+                    <div style="font-size:.56rem;color:var(--muted)">Ketua RT</div>
+                </div>
+            </a>
+            <a href="tel:112" class="emergency-btn">
+                <div class="emergency-icon">🚑</div>
+                <div>
+                    <div style="font-size:.68rem;font-weight:800">Darurat / 112</div>
+                    <div style="font-size:.56rem;color:var(--muted)">Layanan darurat</div>
+                </div>
+            </a>
+            <a href="tel:110" class="emergency-btn">
+                <div class="emergency-icon">🚔</div>
+                <div>
+                    <div style="font-size:.68rem;font-weight:800">Polisi / 110</div>
+                    <div style="font-size:.56rem;color:var(--muted)">Keamanan</div>
+                </div>
+            </a>
+            <a href="tel:113" class="emergency-btn">
+                <div class="emergency-icon">🔥</div>
+                <div>
+                    <div style="font-size:.68rem;font-weight:800">Pemadam / 113</div>
+                    <div style="font-size:.56rem;color:var(--muted)">Kebakaran</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= E-SURAT ========================= -->
+<section id="tab-surat" class="tab-content hidden">
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">📄 Pengajuan Surat Pengantar RT</div>
+                <div class="card-subtitle">Permohonan dokumen resmi RT melalui WhatsApp</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label for="surat-nama" class="input-label">Nama Lengkap Pemohon</label>
+                <input id="surat-nama" class="input-control" type="text" maxlength="100" autocomplete="name" placeholder="Nama sesuai KTP">
+            </div>
+
+            <div>
+                <label for="surat-nik" class="input-label">NIK (16 Digit)</label>
+                <input id="surat-nik" class="input-control" type="text" inputmode="numeric" maxlength="16" autocomplete="off" placeholder="16 digit NIK">
+            </div>
+
+            <div>
+                <label for="surat-kk" class="input-label">Nomor KK (16 Digit)</label>
+                <input id="surat-kk" class="input-control" type="text" inputmode="numeric" maxlength="16" autocomplete="off" placeholder="16 digit nomor KK">
+            </div>
+
+            <div>
+                <label for="surat-jenis" class="input-label">Jenis Surat Pengantar</label>
+                <select id="surat-jenis" class="input-control">
+                    <option>Pengantar KTP / KK Baru</option>
+                    <option>Surat Keterangan Domisili</option>
+                    <option>Surat Keterangan Tidak Mampu (SKTM)</option>
+                    <option>Pengantar SKCK</option>
+                    <option>Surat Keterangan Usaha (SKU)</option>
+                    <option>Lainnya</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="surat-keperluan" class="input-label">Keperluan / Keterangan Tambahan</label>
+                <textarea id="surat-keperluan" class="input-control" rows="2" maxlength="500" placeholder="Jelaskan alasan/tujuan pembuatan surat..."></textarea>
+            </div>
+
+            <button class="btn btn-blue" onclick="kirimPermohonanSurat()">📲 Ajukan Surat Ke Pak RT</button>
+            <div style="font-size:.55rem;color:var(--muted);margin-top:2px;">
+                🔒 Data NIK/KK Anda disamarkan saat proses pengiriman WhatsApp demi menjaga kerahasiaan identitas.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= KAS MASUK ========================= -->
+<section id="tab-masuk" class="tab-content hidden">
+    <div id="box-masuk" class="card role-editor-only hidden">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Catat Iuran Warga</div>
+                <div class="card-subtitle">Input pembayaran kas bulanan / donasi</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label for="in-nama" class="input-label">Nama Warga</label>
+                <input id="in-nama" class="input-control" type="text" list="warga-list" maxlength="100" placeholder="Pilih atau ketik nama warga...">
+                <datalist id="warga-list"></datalist>
+            </div>
+
+            <div>
+                <label for="in-kat-masuk" class="input-label">Kategori Iuran</label>
+                <select id="in-kat-masuk" class="input-control">
+                    <option>Iuran Kas Bulanan</option>
+                    <option>Iuran Kebersihan</option>
+                    <option>Iuran Keamanan</option>
+                    <option>Donatur / Pembangunan</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="in-jumlah-masuk" class="input-label">Nominal (Rp)</label>
+                <input id="in-jumlah-masuk" class="input-control" type="text" inputmode="numeric" placeholder="Rp 0" oninput="formatRupiahInput(this)">
+            </div>
+
+            <button class="btn btn-primary" onclick="tambahPemasukan()">+ Simpan Iuran</button>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= KAS KELUAR ========================= -->
+<section id="tab-keluar" class="tab-content hidden">
+    <div id="box-keluar" class="card role-editor-only hidden">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Catat Pengeluaran RT</div>
+                <div class="card-subtitle">Input biaya operasional & pemeliharaan</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label for="in-ket" class="input-label">Keterangan Biaya</label>
+                <input id="in-ket" class="input-control" type="text" maxlength="150" placeholder="Contoh: Perbaikan penerangan jalan">
+            </div>
+
+            <div>
+                <label for="in-kat-keluar" class="input-label">Kategori Biaya</label>
+                <select id="in-kat-keluar" class="input-control">
+                    <option>Kebersihan</option>
+                    <option>Keamanan</option>
+                    <option>Pembangunan</option>
+                    <option>Operasional RT</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="in-jumlah-keluar" class="input-label">Nominal (Rp)</label>
+                <input id="in-jumlah-keluar" class="input-control" type="text" inputmode="numeric" placeholder="Rp 0" oninput="formatRupiahInput(this)">
+            </div>
+
+            <button class="btn btn-danger" onclick="tambahPengeluaran()">+ Simpan Pengeluaran</button>
+        </div>
+    </div>
+</section>
+
+<!-- ========================= STATUS KK ========================= -->
+<section id="tab-kk" class="tab-content hidden">
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Status Iuran Kepala Keluarga</div>
+                <div class="card-subtitle" id="kk-period-text">Memuat status iuran...</div>
+            </div>
+        </div>
+
+        <div style="margin-bottom:10px">
+            <label for="kk-month" class="input-label">Pilih Bulan</label>
+            <select id="kk-month" class="input-control" onchange="renderKKStatus()"></select>
+        </div>
+
+        <div id="kk-container" class="kk-grid"></div>
+    </div>
+</section>
+
+<!-- ========================= TABEL TRANSAKSI ========================= -->
+<section id="section-table" class="card hidden">
+    <div class="card-header">
+        <div>
+            <div class="card-title" id="transaction-title">Riwayat Pemasukan</div>
+            <div class="card-subtitle">Daftar pencatatan kas RT 06</div>
+        </div>
+        <button class="btn btn-gold btn-sm" onclick="downloadLaporanPDF()">📄 PDF</button>
+    </div>
+
+    <div class="search-box">
+        <span>🔍</span>
+        <input id="search-input" class="input-control" type="text" placeholder="Cari transaksi..." oninput="renderData()">
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Transaksi</th>
+                    <th>Jumlah</th>
+                    <th>Opsi</th>
+                </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+        </table>
+    </div>
+
+    <div id="last-sync" class="sync-info">Belum sinkronisasi</div>
+</section>
+
+<!-- CHART -->
+<section id="section-chart" class="card hidden">
+    <div class="card-header">
+        <div>
+            <div class="card-title">Alokasi Pengeluaran</div>
+            <div class="card-subtitle">Distribusi penggunaan kas berdasarkan kategori</div>
+        </div>
+    </div>
+    <div class="chart-box">
+        <canvas id="expenseChart"></canvas>
+    </div>
+</section>
+
+</div>
+
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchNav('masuk', this)">
+    <button id="nav-info" class="nav-item active" onclick="switchNav('info')">
+        <span class="nav-icon">📢</span>
+        <span>Informasi</span>
+    </button>
+
+    <button id="nav-surat" class="nav-item" onclick="switchNav('surat')">
+        <span class="nav-icon">📄</span>
+        <span>E-Surat</span>
+    </button>
+
+    <button id="nav-masuk" class="nav-item" onclick="switchNav('masuk')">
         <span class="nav-icon">📥</span>
-        <span>Pemasukan</span>
+        <span>Masuk</span>
     </button>
-    <button class="nav-item" onclick="switchNav('keluar', this)">
+
+    <button id="nav-keluar" class="nav-item" onclick="switchNav('keluar')">
         <span class="nav-icon">📤</span>
-        <span>Pengeluaran</span>
+        <span>Keluar</span>
     </button>
-    <button class="nav-item" onclick="switchNav('kk', this)">
+
+    <button id="nav-kk" class="nav-item" onclick="switchNav('kk')">
         <span class="nav-icon">🏠</span>
         <span>Status KK</span>
     </button>
 </nav>
 
 <script>
-const MASTER_WARGA_KK = ["Pak RT 06", "Pak Budi", "Pak Joko", "Pak Santoso", "Pak Agus", "Pak Hendra", "Bu Siti", "Pak Rian"];
+/* =========================================================
+   KONFIGURASI
+========================================================= */
+const CONFIG = {
+    API_URL: "https://script.google.com/macros/s/AKfycby0YjtywpDJLTMhgMY1E8wNKyOERIvwYfcUrf8EaikXdqQnMmiZeamdoVqSk9ZkcIg/exec",
+    WA_RT: "6281234567890",
+    CACHE_KAS: "rt06_kas_cache_v2",
+    CACHE_PENGUMUMAN: "rt06_pengumuman_v2",
+    OFFLINE_QUEUE: "rt06_offline_queue_v1",
+    SESSION: "rt06_user_session",
+    THEME: "rt06_theme"
+};
+
+/* =========================================================
+   MASTER DATA FALLBACK
+========================================================= */
+const MASTER_WARGA_KK = [
+    "Pak RT 06", "Pak Budi", "Pak Joko", "Pak Santoso", 
+    "Pak Agus", "Pak Hendra", "Bu Siti", "Pak Rian", 
+    "Pak Bambang", "Pak Eko"
+];
+
+/* =========================================================
+   STATE
+========================================================= */
+let currentUser = null;
 let expenseChart = null;
 
-function switchNav(tab, el) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.getElementById(`tab-${tab}`).classList.remove('hidden');
-    el.classList.add('active');
+let state = {
+    currentTab: "info",
+    riwayat: [],
+    pengeluaran: [],
+    warga: [...MASTER_WARGA_KK],
+    pendingQueue: [],
+    lastSync: null,
+    loading: false
+};
+
+/* =========================================================
+   PENGUMUMAN DEFAULT
+========================================================= */
+const DEFAULT_PENGUMUMAN = [
+    {
+        id: "p1",
+        judul: "Kerja Bakti Kebersihan Lingkungan RT 06",
+        kategori: "Kerja Bakti",
+        tanggal: "12/10/2026",
+        isi: "Diharapkan kehadiran Bapak/Ibu warga RT 06 untuk kerja bakti pembersihan selokan jelang musim hujan pada Hari Minggu, pukul 07.00 WIB di Lapangan RT."
+    },
+    {
+        id: "p2",
+        judul: "Pelaksanaan Posyandu Balita & Lansia",
+        kategori: "Posyandu & Kesehatan",
+        tanggal: "05/10/2026",
+        isi: "Posyandu rutin bulanan akan dilaksanakan di Balai RT 06 pada Hari Rabu pukul 09.00 WIB. Harap membawa buku KIA."
+    }
+];
+
+let pengumumanData = loadPengumuman();
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+window.addEventListener("load", async () => {
+    applySavedTheme();
+    configureLinks();
+    populateWargaDatalist();
+    initMonthSelector();
+    checkSession();
+    initChart();
+    renderPengumuman();
+    loadCachedData();
+    loadOfflineQueue();
+    updateConnectionStatus();
+    renderData();
+    renderKKStatus();
+    
+    await fetchCloudData();
+    await processOfflineQueue();
+});
+
+window.addEventListener("online", async () => {
+    updateConnectionStatus();
+    showToast("Koneksi internet kembali. Sinkronisasi antrean...", "🟢");
+    await processOfflineQueue();
+    await fetchCloudData();
+});
+
+window.addEventListener("offline", () => {
+    updateConnectionStatus();
+    showToast("Mode offline aktif. Data baru akan masuk antrean.", "📡");
+});
+
+/* =========================================================
+   CONNECTION
+========================================================= */
+function updateConnectionStatus(){
+    const dot = document.getElementById("connection-dot");
+    const text = document.getElementById("connection-text");
+    if(!dot || !text) return;
+
+    if(navigator.onLine){
+        dot.className = "status-dot online";
+        text.innerText = "Online";
+    }else{
+        dot.className = "status-dot offline";
+        text.innerText = "Offline · Mode Antrean";
+    }
 }
 
-function parseRupiah(str) { return Number(String(str).replace(/[^0-9]/g, '')) || 0; }
-function formatRupiahInput(el) { let val = parseRupiah(el.value); el.value = val ? "Rp " + val.toLocaleString('id-ID') : ""; }
+/* =========================================================
+   UTILITIES & SANITIZATION
+========================================================= */
+function vibrate(ms = 15){
+    if("vibrate" in navigator){
+        try{ navigator.vibrate(ms); }catch(e){}
+    }
+}
 
-function toggleTheme() { document.body.classList.toggle('dark'); }
+function escapeHtml(value){
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
-function initChart() {
-    const ctx = document.getElementById('expenseChart').getContext('2d');
-    expenseChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Kebersihan', 'Keamanan', 'Pembangunan', 'Operasional'],
-            datasets: [{ 
-                data: [30, 25, 25, 20], 
-                backgroundColor: ['#556b2f', '#d4af37', '#b8860b', '#c62828'] 
-            }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+function normalizeName(value){
+    return String(value || "").trim().replace(/\s+/g," ").toLowerCase();
+}
+
+function parseRupiah(value){
+    return Number(String(value || "").replace(/[^0-9]/g,"")) || 0;
+}
+
+function formatRp(value){
+    return "Rp " + Number(value || 0).toLocaleString("id-ID");
+}
+
+function formatRupiahInput(el){
+    const value = parseRupiah(el.value);
+    el.value = value ? "Rp " + value.toLocaleString("id-ID") : "";
+}
+
+function maskIdentifier(str){
+    if(!str || str.length < 6) return "****************";
+    return str.substring(0, 4) + "****************";
+}
+
+function getTanggalIndonesia(){
+    const now = new Date();
+    const dd = String(now.getDate()).padStart(2,"0");
+    const mm = String(now.getMonth()+1).padStart(2,"0");
+    const yyyy = now.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
+}
+
+function tanggalMasukBulan(tanggal, periode){
+    if(!tanggal) return false;
+    const parts = String(tanggal).split("/");
+    if(parts.length !== 3){
+        const d = new Date(tanggal);
+        if(!isNaN(d.getTime())){
+            const p = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+            return p === periode;
+        }
+        return false;
+    }
+    return `${parts[2]}-${parts[1]}` === periode;
+}
+
+/* =========================================================
+   UI FEEDBACK (TOAST, LOADER, SHAKE)
+========================================================= */
+function showToast(message, icon="✓"){
+    const toast = document.getElementById("toast");
+    document.getElementById("toast-icon").innerText = icon;
+    document.getElementById("toast-msg").innerText = message;
+    toast.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2800);
+}
+
+function showLoader(show, message){
+    const loader = document.getElementById("loader");
+    const loaderText = document.getElementById("loader-text");
+    if(message && loaderText){
+        loaderText.innerText = "⏳ " + message;
+    }
+    loader.classList.toggle("hidden", !show);
+}
+
+function triggerShake(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.animate([
+        {transform:"translateX(0)"},
+        {transform:"translateX(-6px)"},
+        {transform:"translateX(6px)"},
+        {transform:"translateX(-4px)"},
+        {transform:"translateX(0)"}
+    ], { duration: 350 });
+    vibrate([30,50,30]);
+}
+
+/* =========================================================
+   THEME & CONFIG
+========================================================= */
+function toggleTheme(){
+    document.body.classList.toggle("dark");
+    localStorage.setItem(CONFIG.THEME, document.body.classList.contains("dark") ? "dark" : "light");
+}
+
+function applySavedTheme(){
+    if(localStorage.getItem(CONFIG.THEME) === "dark"){
+        document.body.classList.add("dark");
+    }
+}
+
+function configureLinks(){
+    const link = document.getElementById("wa-rt-link");
+    if(link) link.href = "https://wa.me/" + CONFIG.WA_RT;
+}
+
+function populateWargaDatalist(){
+    const datalist = document.getElementById("warga-list");
+    if(!datalist) return;
+    datalist.innerHTML = "";
+    state.warga.forEach(warga => {
+        const option = document.createElement("option");
+        option.value = warga;
+        datalist.appendChild(option);
+    });
+    const quick = document.getElementById("quick-kk");
+    if(quick) quick.innerText = state.warga.length + " KK";
+}
+
+/* =========================================================
+   AUTH LOGIC
+========================================================= */
+function openModalLogin(){
+    document.getElementById("modal-login").classList.add("show");
+    setTimeout(() => { document.getElementById("login-user")?.focus(); }, 200);
+}
+
+function closeModalLogin(){
+    document.getElementById("modal-login").classList.remove("show");
+}
+
+function closeLoginOutside(event){
+    if(event.target.id === "modal-login") closeModalLogin();
+}
+
+document.addEventListener("keydown", (event) => {
+    const modal = document.getElementById("modal-login");
+    if(event.key === "Escape" && modal.classList.contains("show")) closeModalLogin();
+    if(event.key === "Enter" && modal.classList.contains("show")){
+        const active = document.activeElement;
+        if(active.id === "login-user" || active.id === "login-pass") handleLogin();
+    }
+});
+
+async function handleLogin(){
+    const username = document.getElementById("login-user").value.trim();
+    const password = document.getElementById("login-pass").value.trim();
+
+    if(!username || !password){
+        triggerShake("login-form-box");
+        return showToast("Username dan password wajib diisi", "⚠️");
+    }
+
+    showLoader(true, "Memeriksa akun...");
+
+    try{
+        const response = await fetch(CONFIG.API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify({ action: "login", username, password })
+        });
+
+        if(!response.ok) throw new Error("HTTP " + response.status);
+        const data = await response.json();
+
+        if(data.success){
+            currentUser = data.user || null;
+            sessionStorage.setItem(CONFIG.SESSION, JSON.stringify(currentUser));
+
+            document.getElementById("login-user").value = "";
+            document.getElementById("login-pass").value = "";
+
+            closeModalLogin();
+            updateRoleUI();
+            showToast("Login pengurus berhasil", "✅");
+        }else{
+            triggerShake("login-form-box");
+            showToast(data.message || "Username/password salah", "❌");
+        }
+    }catch(error){
+        showToast("Server tidak dapat dihubungi", "📡");
+    }finally{
+        showLoader(false);
+    }
+}
+
+function checkSession(){
+    try{
+        const saved = sessionStorage.getItem(CONFIG.SESSION);
+        currentUser = saved ? JSON.parse(saved) : null;
+    }catch(error){
+        currentUser = null;
+    }
+    updateRoleUI();
+}
+
+function handleLogout(){
+    sessionStorage.removeItem(CONFIG.SESSION);
+    currentUser = null;
+    updateRoleUI();
+    showToast("Berhasil keluar akun", "🚪");
+}
+
+function isEditor(){
+    if(!currentUser) return false;
+    const role = String(currentUser.role || "").toLowerCase();
+    return (role === "editor" || role === "admin" || role === "pengurus");
+}
+
+function updateRoleUI(){
+    const authBtn = document.getElementById("btn-auth-action");
+    const roleText = document.getElementById("user-role-text");
+
+    if(currentUser){
+        roleText.innerText = `${currentUser.name || "Pengurus"} · ${currentUser.role || "Pengurus"}`;
+        authBtn.innerText = "Keluar";
+        authBtn.className = "btn btn-danger btn-sm";
+        authBtn.onclick = () => { vibrate(20); handleLogout(); };
+    }else{
+        roleText.innerText = "Pusat Informasi & Kas Warga";
+        authBtn.innerText = "🔑 Login";
+        authBtn.className = "btn btn-primary btn-sm";
+        authBtn.onclick = () => { vibrate(15); openModalLogin(); };
+    }
+
+    document.querySelectorAll(".role-editor-only").forEach(el => {
+        el.classList.toggle("hidden", !isEditor());
+    });
+
+    renderPengumuman();
+    renderData();
+}
+
+/* =========================================================
+   PENGUMUMAN
+========================================================= */
+function loadPengumuman(){
+    try{
+        const saved = localStorage.getItem(CONFIG.CACHE_PENGUMUMAN);
+        if(saved){
+            const parsed = JSON.parse(saved);
+            if(Array.isArray(parsed)) return parsed;
+        }
+    }catch(e){}
+    return [...DEFAULT_PENGUMUMAN];
+}
+
+function savePengumumanLocal(){
+    localStorage.setItem(CONFIG.CACHE_PENGUMUMAN, JSON.stringify(pengumumanData));
+}
+
+function renderPengumuman(){
+    const container = document.getElementById("pengumuman-list-container");
+    if(!container) return;
+    container.innerHTML = "";
+
+    const quick = document.getElementById("quick-pengumuman");
+    if(quick) quick.innerText = pengumumanData.length + " Agenda";
+
+    if(!pengumumanData.length){
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">📢</div>
+                <div class="empty-title">Belum ada pengumuman</div>
+                <div class="empty-text">Pengumuman RT akan muncul di sini.</div>
+            </div>`;
+        return;
+    }
+
+    pengumumanData.forEach(item => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "info-card-item";
+        wrapper.innerHTML = `
+            <span class="info-tag">${escapeHtml(item.kategori)}</span>
+            <span class="info-date">📅 ${escapeHtml(item.tanggal)}</span>
+            <div class="info-title">${escapeHtml(item.judul)}</div>
+            <div class="info-body">${escapeHtml(item.isi)}</div>
+        `;
+
+        if(isEditor()){
+            const deleteBtn = document.createElement("button");
+            deleteBtn.className = "btn btn-danger btn-sm";
+            deleteBtn.style.marginTop = "8px";
+            deleteBtn.innerText = "🗑️ Hapus";
+            deleteBtn.onclick = () => hapusPengumuman(item.id);
+            wrapper.appendChild(deleteBtn);
+        }
+        container.appendChild(wrapper);
     });
 }
 
-function renderKKStatus() {
+function tambahPengumuman(){
+    if(!isEditor()) return showToast("Silakan login sebagai pengurus", "🔒");
+
+    const judul = document.getElementById("in-info-judul").value.trim();
+    const kategori = document.getElementById("in-info-kat").value;
+    const isi = document.getElementById("in-info-isi").value.trim();
+
+    if(!judul || !isi){
+        triggerShake("box-pengumuman-form");
+        return showToast("Judul dan isi wajib diisi", "⚠️");
+    }
+
+    const item = { id: "p" + Date.now(), judul, kategori, tanggal: getTanggalIndonesia(), isi };
+    pengumumanData.unshift(item);
+    savePengumumanLocal();
+    renderPengumuman();
+
+    document.getElementById("in-info-judul").value = "";
+    document.getElementById("in-info-isi").value = "";
+
+    showToast("Pengumuman berhasil dipublikasikan", "📢");
+}
+
+function hapusPengumuman(id){
+    if(!isEditor()) return;
+    if(!confirm("Hapus pengumuman ini?")) return;
+    pengumumanData = pengumumanData.filter(item => item.id !== id);
+    savePengumumanLocal();
+    renderPengumuman();
+    showToast("Pengumuman dihapus", "🗑️");
+}
+
+/* =========================================================
+   E-SURAT LOGIC
+========================================================= */
+function kirimPermohonanSurat(){
+    const nama = document.getElementById("surat-nama").value.trim();
+    const nik = document.getElementById("surat-nik").value.trim();
+    const kk = document.getElementById("surat-kk").value.trim();
+    const jenis = document.getElementById("surat-jenis").value;
+    const keperluan = document.getElementById("surat-keperluan").value.trim();
+
+    if(!nama) return showToast("Nama lengkap wajib diisi", "⚠️");
+    if(!/^\d{16}$/.test(nik)) return showToast("NIK harus 16 digit angka", "⚠️");
+    if(kk && !/^\d{16}$/.test(kk)) return showToast("Nomor KK harus 16 digit angka", "⚠️");
+
+    const text = 
+        `*PERMOHONAN SURAT PENGANTAR RT 06*\n\n` +
+        `Kepada Yth. Ketua RT 06 / RW 01\n\n` +
+        `Nama Lengkap: *${nama}*\n` +
+        `NIK: *${maskIdentifier(nik)}*\n` +
+        `Nomor KK: *${kk ? maskIdentifier(kk) : "-"}*\n` +
+        `Jenis Surat: *${jenis}*\n` +
+        `Keperluan: _${keperluan || "Pengurusan administrasi"}_\n\n` +
+        `Mohon bantuannya untuk pembuatan Surat Pengantar RT.\n\n` +
+        `Terima kasih.`;
+
+    window.open("https://wa.me/" + CONFIG.WA_RT + "?text=" + encodeURIComponent(text), "_blank");
+    showToast("Permohonan siap dikirim ke WhatsApp", "📲");
+}
+
+/* =========================================================
+   CACHE & OFFLINE QUEUE SYSTEM
+========================================================= */
+function saveKasCache(){
+    const payload = {
+        riwayat: state.riwayat,
+        pengeluaran: state.pengeluaran,
+        warga: state.warga,
+        lastSync: state.lastSync
+    };
+    localStorage.setItem(CONFIG.CACHE_KAS, JSON.stringify(payload));
+}
+
+function loadCachedData(){
+    try{
+        const saved = localStorage.getItem(CONFIG.CACHE_KAS);
+        if(!saved) return;
+        const data = JSON.parse(saved);
+
+        if(Array.isArray(data.riwayat)) state.riwayat = data.riwayat;
+        if(Array.isArray(data.pengeluaran)) state.pengeluaran = data.pengeluaran;
+        if(Array.isArray(data.warga) && data.warga.length){
+            state.warga = data.warga;
+            populateWargaDatalist();
+        }
+        state.lastSync = data.lastSync || null;
+
+        renderData();
+        renderKKStatus();
+        updateLastSync();
+    }catch(error){
+        console.warn("Cache tidak dapat dibaca", error);
+    }
+}
+
+function loadOfflineQueue(){
+    try{
+        const saved = localStorage.getItem(CONFIG.OFFLINE_QUEUE);
+        state.pendingQueue = saved ? JSON.parse(saved) : [];
+    }catch(e){
+        state.pendingQueue = [];
+    }
+}
+
+function saveOfflineQueue(){
+    localStorage.setItem(CONFIG.OFFLINE_QUEUE, JSON.stringify(state.pendingQueue));
+}
+
+async function processOfflineQueue(){
+    if(!navigator.onLine || !state.pendingQueue.length) return;
+
+    showLoader(true, `Menyinkronkan ${state.pendingQueue.length} transaksi antrean...`);
+    const remainingQueue = [];
+
+    for(const item of state.pendingQueue){
+        try{
+            const res = await fetch(CONFIG.API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(item)
+            });
+            const data = await res.json();
+            if(!res.ok || data.success === false) remainingQueue.push(item);
+        }catch(e){
+            remainingQueue.push(item);
+        }
+    }
+
+    state.pendingQueue = remainingQueue;
+    saveOfflineQueue();
+    showLoader(false);
+
+    if(!remainingQueue.length){
+        showToast("Seluruh antrean lokal terkirim!", "🟢");
+    }
+}
+
+/* =========================================================
+   API OPERATIONS (GET/POST)
+========================================================= */
+async function fetchCloudData(){
+    if(state.loading) return;
+    state.loading = true;
+    showLoader(true, "Menyinkronkan data...");
+
+    try{
+        const response = await fetch(CONFIG.API_URL + "?t=" + Date.now(), {
+            method: "GET",
+            cache: "no-store"
+        });
+
+        if(!response.ok) throw new Error("HTTP " + response.status);
+        const data = await response.json();
+
+        state.riwayat = Array.isArray(data.riwayat) ? data.riwayat : [];
+        state.pengeluaran = Array.isArray(data.pengeluaran) ? data.pengeluaran : [];
+
+        if(Array.isArray(data.warga) && data.warga.length){
+            state.warga = data.warga.map(item => {
+                if(typeof item === "string") return item;
+                return item.nama || item.namaKK || item.kepalaKeluarga || "";
+            }).filter(Boolean);
+            populateWargaDatalist();
+        }
+
+        state.lastSync = new Date().toISOString();
+        saveKasCache();
+        renderData();
+        renderKKStatus();
+        updateLastSync();
+        updateConnectionStatus();
+    }catch(error){
+        console.error("Gagal mengambil data:", error);
+        loadCachedData();
+        showToast("Server offline · Menggunakan data lokal", "📡");
+    }finally{
+        state.loading = false;
+        showLoader(false);
+    }
+}
+
+async function sendCloudPayload(payload){
+    if(!isEditor()){
+        showToast("Login pengurus diperlukan", "🔒");
+        return false;
+    }
+
+    // Jika Offline, Masukkan ke Antrean Lokal
+    if(!navigator.onLine){
+        state.pendingQueue.push(payload);
+        saveOfflineQueue();
+
+        // Tampilkan secara optimis di UI lokal
+        if(payload.action === "tambah_iuran"){
+            state.riwayat.unshift({ ...payload, id: "temp_" + Date.now(), isPending: true });
+        }else if(payload.action === "tambah_pengeluaran"){
+            state.pengeluaran.unshift({ ...payload, id: "temp_" + Date.now(), isPending: true });
+        }
+
+        saveKasCache();
+        renderData();
+        renderKKStatus();
+        showToast("Tersimpan di antrean offline lokal", "📡");
+        return true;
+    }
+
+    showLoader(true, "Menyimpan data...");
+
+    try{
+        const response = await fetch(CONFIG.API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(payload)
+        });
+
+        if(!response.ok) throw new Error("HTTP " + response.status);
+        let data = null;
+        try{ data = await response.json(); }catch(e){}
+
+        if(data && data.success === false){
+            throw new Error(data.message || "Server menolak data");
+        }
+
+        showToast("Data berhasil disimpan", "✅");
+        await fetchCloudData();
+        return true;
+    }catch(error){
+        console.error(error);
+        showToast("Gagal menyimpan data", "❌");
+        return false;
+    }finally{
+        showLoader(false);
+    }
+}
+
+/* =========================================================
+   TRANSACTION HANDLERS
+========================================================= */
+async function tambahPemasukan(){
+    if(!isEditor()) return showToast("Login pengurus diperlukan", "🔒");
+
+    const nama = document.getElementById("in-nama").value.trim();
+    const kategori = document.getElementById("in-kat-masuk").value;
+    const jumlah = parseRupiah(document.getElementById("in-jumlah-masuk").value);
+
+    if(!nama || jumlah <= 0){
+        triggerShake("box-masuk");
+        return showToast("Nama warga & nominal wajib diisi", "⚠️");
+    }
+
+    if(jumlah > 100000000) return showToast("Nominal terlalu besar", "⚠️");
+
+    const success = await sendCloudPayload({
+        action: "tambah_iuran",
+        nama,
+        kategori,
+        jumlah,
+        tanggal: getTanggalIndonesia()
+    });
+
+    if(success){
+        document.getElementById("in-nama").value = "";
+        document.getElementById("in-jumlah-masuk").value = "";
+    }
+}
+
+async function tambahPengeluaran(){
+    if(!isEditor()) return showToast("Login pengurus diperlukan", "🔒");
+
+    const keterangan = document.getElementById("in-ket").value.trim();
+    const kategori = document.getElementById("in-kat-keluar").value;
+    const jumlah = parseRupiah(document.getElementById("in-jumlah-keluar").value);
+
+    if(!keterangan || jumlah <= 0){
+        triggerShake("box-keluar");
+        return showToast("Keterangan & nominal wajib diisi", "⚠️");
+    }
+
+    if(jumlah > 100000000) return showToast("Nominal terlalu besar", "⚠️");
+
+    const success = await sendCloudPayload({
+        action: "tambah_pengeluaran",
+        keterangan,
+        kategori,
+        jumlah,
+        tanggal: getTanggalIndonesia()
+    });
+
+    if(success){
+        document.getElementById("in-ket").value = "";
+        document.getElementById("in-jumlah-keluar").value = "";
+    }
+}
+
+async function hapusTransaksiItem(id, type){
+    if(!isEditor()) return showToast("Login pengurus diperlukan", "🔒");
+    if(!id) return showToast("ID transaksi tidak tersedia", "⚠️");
+
+    if(!confirm("Yakin ingin menghapus transaksi ini?")) return;
+
+    await sendCloudPayload({ action: "hapus_item", id, type });
+}
+
+/* =========================================================
+   NAVIGATION & RENDER
+========================================================= */
+function switchNav(tab){
+    state.currentTab = tab;
+
+    document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
+    document.querySelectorAll(".section-tab").forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
+
+    const content = document.getElementById("tab-" + tab);
+    if(content) content.classList.remove("hidden");
+
+    const topButton = document.getElementById("tab-button-" + tab);
+    if(topButton) topButton.classList.add("active");
+
+    const bottomButton = document.getElementById("nav-" + tab);
+    if(bottomButton) bottomButton.classList.add("active");
+
+    const isKas = (tab === "masuk" || tab === "keluar");
+    document.getElementById("section-table").classList.toggle("hidden", !isKas);
+    document.getElementById("section-chart").classList.toggle("hidden", tab !== "keluar");
+
+    renderData();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderData(){
+    const tbody = document.getElementById("table-body");
+    if(!tbody) return;
+
+    const searchInput = document.getElementById("search-input");
+    const search = String(searchInput?.value || "").toLowerCase().trim();
+
+    const totalMasuk = state.riwayat.reduce((total, item) => total + Number(item.jumlah || 0), 0);
+    const totalKeluar = state.pengeluaran.reduce((total, item) => total + Number(item.jumlah || 0), 0);
+    const saldo = totalMasuk - totalKeluar;
+
+    document.getElementById("stat-masuk").innerText = formatRp(totalMasuk);
+    document.getElementById("stat-keluar").innerText = formatRp(totalKeluar);
+    document.getElementById("stat-saldo").innerText = formatRp(saldo);
+    document.getElementById("quick-kk").innerText = state.warga.length + " KK";
+
+    const isMasuk = (state.currentTab === "masuk");
+    const dataset = isMasuk ? state.riwayat : state.pengeluaran;
+
+    const filtered = dataset.filter(item => {
+        const text = isMasuk 
+            ? `${item.nama || ""} ${item.kategori || ""}`
+            : `${item.keterangan || ""} ${item.kategori || ""}`;
+        return text.toLowerCase().includes(search);
+    });
+
+    document.getElementById("transaction-title").innerText = isMasuk ? "Riwayat Pemasukan" : "Riwayat Pengeluaran";
+    tbody.innerHTML = "";
+
+    if(!filtered.length){
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="4">
+                    <div class="empty-state">
+                        <div class="empty-icon">${isMasuk ? "📥" : "📤"}</div>
+                        <div class="empty-title">Belum Ada Transaksi</div>
+                        <div class="empty-text">Data pencatatan kas akan muncul di sini.</div>
+                    </div>
+                </td>
+            </tr>`;
+    }else{
+        filtered.forEach(item => {
+            const title = isMasuk ? item.nama : item.keterangan;
+            const amount = Number(item.jumlah || 0);
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td>
+                    <span style="font-size:.6rem;font-weight:700">
+                        ${escapeHtml(item.tanggal || "-")}
+                    </span>
+                    ${item.isPending ? '<br><span class="badge badge-pending">Offline</span>' : ''}
+                </td>
+                <td>
+                    <div class="transaction-title">${escapeHtml(title || "-")}</div>
+                    <div class="transaction-sub">${escapeHtml(item.kategori || "Umum")}</div>
+                </td>
+                <td>
+                    <div class="amount ${isMasuk ? "masuk" : "keluar"}">
+                        ${isMasuk ? "+" : "-"} ${formatRp(amount)}
+                    </div>
+                </td>
+                <td>
+                    ${isMasuk ? `
+                        <button class="btn btn-light btn-sm" style="padding:4px 8px;font-size:.58rem"
+                            onclick="bagikanKwitansiWA('${escapeForJs(title)}','${escapeForJs(item.kategori)}','${amount}','${escapeForJs(item.tanggal)}')">
+                            📲
+                        </button>` : `<span class="badge badge-keluar">Pengeluaran</span>`}
+                </td>
+            `;
+
+            if(isEditor() && item.id){
+                const td = tr.querySelector("td:last-child");
+                const deleteButton = document.createElement("button");
+                deleteButton.className = "btn btn-danger btn-sm";
+                deleteButton.style.cssText = "padding:2px 6px;font-size:.58rem;margin-left:4px";
+                deleteButton.innerText = "✕";
+                deleteButton.onclick = () => hapusTransaksiItem(item.id, isMasuk ? "riwayat" : "pengeluaran");
+                td.appendChild(deleteButton);
+            }
+
+            tbody.appendChild(tr);
+        });
+    }
+
+    updateChart();
+}
+
+function escapeForJs(value){
+    return String(value ?? "")
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'")
+        .replace(/\r/g," ")
+        .replace(/\n/g," ");
+}
+
+/* =========================================================
+   STATUS KK
+========================================================= */
+function initMonthSelector(){
+    const select = document.getElementById("kk-month");
+    if(!select) return;
+
+    const now = new Date();
+    select.innerHTML = "";
+
+    for(let i=0; i<12; i++){
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+        const label = d.toLocaleDateString("id-ID", { month: "long", year: "numeric" });
+
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = label;
+        select.appendChild(option);
+    }
+}
+
+function renderKKStatus(){
     const container = document.getElementById("kk-container");
+    if(!container) return;
+
+    const selected = document.getElementById("kk-month")?.value;
     container.innerHTML = "";
-    MASTER_WARGA_KK.forEach(warga => {
-        const isLunas = Math.random() > 0.3;
-        container.innerHTML += `
-            <div class="kk-card">
-                <div style="font-size:0.8rem; font-weight:700;">${warga}</div>
-                <span class="kk-status ${isLunas ? 'badge-masuk' : 'badge-keluar'}">${isLunas ? 'LUNAS' : 'BELUM'}</span>
+    let countLunas = 0;
+
+    state.warga.forEach(warga => {
+        const paid = state.riwayat.some(item => {
+            if(normalizeName(item.nama) !== normalizeName(warga)) return false;
+            const kat = String(item.kategori || "").trim().toLowerCase();
+            if(kat !== "iuran kas bulanan") return false;
+            return tanggalMasukBulan(item.tanggal, selected);
+        });
+
+        if(paid) countLunas++;
+
+        const card = document.createElement("div");
+        card.className = "kk-card";
+        card.innerHTML = `
+            <div class="kk-top">
+                <div class="kk-name">${escapeHtml(warga)}</div>
+                <span class="badge ${paid ? "badge-masuk" : "badge-keluar"}">
+                    ${paid ? "LUNAS" : "BELUM"}
+                </span>
+            </div>
+            <div class="kk-month">
+                ${paid ? "Iuran kas bulanan tercatat" : "Belum ada pembayaran"}
             </div>
         `;
+        container.appendChild(card);
+    });
+
+    const total = state.warga.length;
+    const pct = total ? Math.round((countLunas / total) * 100) : 0;
+    document.getElementById("kk-period-text").innerText = `${countLunas} dari ${total} KK Lunas (${pct}%)`;
+}
+
+/* =========================================================
+   CHART
+========================================================= */
+function initChart(){
+    const canvas = document.getElementById("expenseChart");
+    if(!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    expenseChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Kebersihan", "Keamanan", "Pembangunan", "Operasional RT"],
+            datasets: [{
+                data: [0, 0, 0, 0],
+                backgroundColor: ["#556b2f", "#c59a20", "#8e6c16", "#c62828"],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: "68%",
+            plugins: {
+                legend: {
+                    position: "bottom",
+                    labels: { boxWidth: 10, padding: 12, font: { size: 10, family: "Plus Jakarta Sans" } }
+                }
+            }
+        }
     });
 }
 
-window.onload = () => {
-    initChart();
-    renderKKStatus();
-};
+function updateChart(){
+    if(!expenseChart) return;
+    const categories = ["Kebersihan", "Keamanan", "Pembangunan", "Operasional RT"];
+
+    const totals = categories.map(category => {
+        return state.pengeluaran
+            .filter(item => String(item.kategori || "").trim().toLowerCase() === category.toLowerCase())
+            .reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
+    });
+
+    expenseChart.data.datasets[0].data = totals;
+    expenseChart.update();
+}
+
+/* =========================================================
+   KWITANSI & REPORTS
+========================================================= */
+function bagikanKwitansiWA(nama, kategori, jumlah, tanggal){
+    const ref = "INV-" + Math.floor(1000 + Math.random() * 9000);
+    const text = 
+        `*BUKTI PEMBAYARAN IURAN KAS RT 06*\n` +
+        `No. Ref: *${ref}*\n\n` +
+        `Diterima dari: *${nama}*\n` +
+        `Kategori: *${kategori}*\n` +
+        `Tanggal: *${tanggal}*\n` +
+        `Jumlah: *${formatRp(jumlah)}*\n` +
+        `Status: *SAH / LUNAS*\n\n` +
+        `_Terima kasih atas partisipasi dan kontribusinya untuk kemajuan lingkungan RT 06._`;
+
+    window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+}
+
+function updateLastSync(){
+    const el = document.getElementById("last-sync");
+    if(!el) return;
+
+    if(!state.lastSync){
+        el.innerText = "Belum ada sinkronisasi";
+        return;
+    }
+
+    const date = new Date(state.lastSync);
+    if(isNaN(date.getTime())){
+        el.innerText = "Data tersimpan lokal";
+        return;
+    }
+
+    el.innerText = "Sinkronisasi terakhir: " + date.toLocaleString("id-ID", {
+        day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"
+    });
+}
+
+function downloadLaporanPDF(){
+    if(!window.jspdf) return showToast("Library PDF belum siap", "⚠️");
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+    const totalMasuk = state.riwayat.reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
+    const totalKeluar = state.pengeluaran.reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
+    const saldo = totalMasuk - totalKeluar;
+
+    let y = 18;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text("LAPORAN KEUANGAN KAS WARGA RT 06", 105, y, { align: "center" });
+
+    y += 6;
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.text("Pusat Informasi & Transparansi Keuangan RT 06", 105, y, { align: "center" });
+
+    y += 4;
+    doc.setLineWidth(0.5);
+    doc.line(14, y, 196, y);
+
+    y += 8;
+    doc.setFont("helvetica", "bold");
+    doc.text(`Sisa Saldo Kas: ${formatRp(saldo)}`, 14, y);
+
+    y += 5;
+    doc.setFont("helvetica", "normal");
+    doc.text(`Total Pemasukan: ${formatRp(totalMasuk)}   |   Total Pengeluaran: ${formatRp(totalKeluar)}`, 14, y);
+
+    y += 8;
+    doc.setFont("helvetica", "bold");
+    doc.text("RIWAYAT TRANSAKSI", 14, y);
+
+    y += 6;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(14, y - 4, 182, 6, "F");
+    doc.setFontSize(8);
+    doc.text("Tanggal", 16, y);
+    doc.text("Keterangan", 45, y);
+    doc.text("Jenis", 130, y);
+    doc.text("Jumlah", 165, y);
+
+    y += 6;
+    doc.setFont("helvetica", "normal");
+
+    const transactions = [
+        ...state.riwayat.map(item => ({
+            tanggal: item.tanggal || "-", keterangan: item.nama || "-", jenis: "MASUK", jumlah: Number(item.jumlah || 0)
+        })),
+        ...state.pengeluaran.map(item => ({
+            tanggal: item.tanggal || "-", keterangan: item.keterangan || "-", jenis: "KELUAR", jumlah: Number(item.jumlah || 0)
+        }))
+    ];
+
+    if(!transactions.length){
+        doc.text("Belum ada transaksi recorded.", 16, y);
+    }
+
+    transactions.forEach(item => {
+        if(y > 275){
+            doc.addPage();
+            y = 18;
+        }
+
+        doc.text(String(item.tanggal).substring(0,10), 16, y);
+        doc.text(String(item.keterangan).substring(0, 36), 45, y);
+        doc.text(item.jenis, 130, y);
+        doc.text(formatRp(item.jumlah), 165, y);
+
+        y += 5;
+    });
+
+    doc.setFontSize(7);
+    doc.setTextColor(120, 120, 120);
+    doc.text(`Dicetak otomatis dari Portal Resmi RT 06 pada ${getTanggalIndonesia()}`, 105, 288, { align: "center" });
+
+    doc.save("Laporan_Kas_RT06.pdf");
+    showToast("Laporan PDF berhasil diunduh", "📄");
+}
+
+/* =========================================================
+   PERSISTENCE BEFORE UNLOAD
+========================================================= */
+window.addEventListener("beforeunload", () => {
+    saveKasCache();
+    saveOfflineQueue();
+});
 </script>
+
 </body>
 </html>
+
