@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sistem Keuangan Kas Warga RT06</title>
+
+    <meta name="theme-color" content="#556b2f">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        :root {
+            /* Palette Olive & Gold (Mode Terang) */
+            --bg-main: linear-gradient(135deg, #f5f5dc 0%, #e6e8d2 50%, #d4af37 100%);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-border: rgba(184, 134, 11, 0.25);
+            --text-main: #2b3214;
+            --text-sub: #5c6340;
+            --olive-primary: #556b2f;
+            --olive-dark: #3b4b20;
+            --gold-accent: #d4af37;
+            --gold-dark: #b8860b;
+            --gold-light: #fef9e7;
+            --green-accent: #2e7d32;
+            --green-light: #e8f5e9;
+            --red-accent: #c62828;
+            --red-light: #ffebee;
+            --shadow-sm: 0 2px 4px rgba(85, 107, 47, 0.08);
+            --shadow-md: 0 4px 10px rgba(85, 107, 47, 0.12);
+            --shadow-lg: 0 10px 20px rgba(85, 107, 47, 0.18);
+            --radius-card: 16px;
+            --radius-btn: 12px;
+        }
+
+        body.dark {
+            /* Palette Olive & Gold (Mode Gelap) */
+            --bg-main: linear-gradient(135deg, #1c220f 0%, #2b3214 50%, #4a3e10 100%);
+            --card-bg: rgba(35, 43, 20, 0.88);
+            --card-border: rgba(212, 175, 55, 0.2);
+            --text-main: #f5f5dc;
+            --text-sub: #c2c8a6;
+            --gold-light: rgba(212, 175, 55, 0.15);
+            --green-light: rgba(46, 125, 50, 0.2);
+            --red-light: rgba(198, 40, 40, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg-main); background-attachment: fixed; color: var(--text-main); min-height: 100vh; padding-bottom: 90px; }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 16px; }
+
+        /* Top Header */
+        .app-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .app-title { font-size: 1.25rem; font-weight: 800; color: var(--text-main); }
+        .app-subtitle { font-size: 0.75rem; color: var(--text-sub); }
+
+        /* Balance Card (Gold & Olive Gradient) */
+        .balance-card { 
+            background: linear-gradient(135deg, #556b2f 0%, #3b4b20 50%, #b8860b 100%); 
+            color: #ffffff; 
+            padding: 20px; 
+            border-radius: var(--radius-card); 
+            box-shadow: var(--shadow-lg); 
+            margin-bottom: 16px; 
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .balance-label { font-size: 0.8rem; opacity: 0.9; font-weight: 600; color: #fdf8e2; }
+        .balance-amount { font-size: 1.8rem; font-weight: 800; margin: 6px 0 16px; color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .balance-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .stat-item p { font-size: 0.7rem; opacity: 0.85; color: #f5f5dc; }
+        .stat-item h4 { font-size: 0.95rem; font-weight: 700; margin-top: 2px; }
+
+        /* Section Cards */
+        .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-card); padding: 16px; margin-bottom: 16px; box-shadow: var(--shadow-sm); backdrop-filter: blur(10px); }
+        .card-header { font-size: 0.9rem; font-weight: 700; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
+
+        /* Form Control UX */
+        .form-group { display: flex; flex-direction: column; gap: 12px; }
+        .input-control { width: 100%; padding: 12px 14px; border-radius: var(--radius-btn); border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-main); font-size: 0.9rem; outline: none; transition: all 0.2s; }
+        .input-control:focus { border-color: var(--gold-dark); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
+
+        .btn { width: 100%; padding: 12px; border-radius: var(--radius-btn); border: none; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
+        .btn-primary { background: linear-gradient(135deg, var(--olive-primary) 0%, var(--olive-dark) 100%); color: #fff; box-shadow: 0 4px 12px rgba(85, 107, 47, 0.3); }
+        .btn-primary:active { transform: scale(0.98); }
+        .btn-sm { width: auto; padding: 6px 12px; font-size: 0.75rem; border-radius: 8px; }
+
+        /* Bottom Nav UI (Olive & Gold Theme) */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card-bg); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; padding: 10px 0 14px; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); z-index: 100; backdrop-filter: blur(12px); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; border: none; background: transparent; color: var(--text-sub); font-size: 0.7rem; font-weight: 600; cursor: pointer; flex: 1; }
+        .nav-item.active { color: var(--gold-dark); font-weight: 800; }
+        .nav-icon { font-size: 1.2rem; }
+
+        /* List Items & Badges */
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--card-border); }
+        .list-item:last-child { border-bottom: none; }
+        .badge { padding: 4px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 700; }
+        .badge-masuk { background: var(--green-light); color: var(--green-accent); border: 1px solid rgba(46, 125, 50, 0.2); }
+        .badge-keluar { background: var(--red-light); color: var(--red-accent); border: 1px solid rgba(198, 40, 40, 0.2); }
+
+        /* KK Grid UX */
+        .kk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+        .kk-card { background: rgba(0, 0, 0, 0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 12px; text-align: center; }
+        .kk-status { display: inline-block; margin-top: 6px; font-size: 0.65rem; font-weight: 800; padding: 2px 8px; border-radius: 10px; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="app-header">
+        <div>
+            <div class="app-title">Kas RT 06</div>
+            <div class="app-subtitle">Sistem Keuangan Olive & Gold</div>
+        </div>
+        <button class="btn btn-sm" onclick="toggleTheme()" style="background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-main);">🌓 Mode</button>
+    </div>
+
+    <!-- Ringkasan Saldo (Olive & Gold Gradient Card) -->
+    <div class="balance-card">
+        <div class="balance-label">Sisa Saldo Kas RT</div>
+        <div class="balance-amount" id="stat-saldo">Rp 0</div>
+        <div class="balance-stats">
+            <div class="stat-item">
+                <p>Total Masuk</p>
+                <h4 id="stat-masuk" style="color: #a3e635;">Rp 0</h4>
+            </div>
+            <div class="stat-item">
+                <p>Total Keluar</p>
+                <h4 id="stat-keluar" style="color: #fca5a5;">Rp 0</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Pemasukan -->
+    <div id="tab-masuk" class="tab-content">
+        <div class="card">
+            <div class="card-header">📥 Catat Iuran Warga</div>
+            <div class="form-group">
+                <input type="text" class="input-control" id="in-nama" placeholder="Nama Warga (cth: Pak Budi)">
+                <select class="input-control" id="in-kat-masuk">
+                    <option value="Iuran Kas Bulanan">Iuran Kas Bulanan</option>
+                    <option value="Iuran Kebersihan">Iuran Kebersihan</option>
+                    <option value="Iuran Keamanan">Iuran Keamanan</option>
+                    <option value="Donatur / Pembangunan">Donatur / Pembangunan</option>
+                </select>
+                <input type="text" class="input-control" id="in-jumlah-masuk" placeholder="Nominal (Rp)" oninput="formatRupiahInput(this)">
+                <button class="btn btn-primary" onclick="tambahPemasukan()">Simpan Iuran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Pengeluaran -->
+    <div id="tab-keluar" class="tab-content hidden">
+        <div class="card">
+            <div class="card-header">📤 Catat Pengeluaran Kas</div>
+            <div class="form-group">
+                <input type="text" class="input-control" id="in-ket" placeholder="Keterangan (cth: Perbaikan Lampu)">
+                <select class="input-control" id="in-kat-keluar">
+                    <option value="Kebersihan">Kebersihan</option>
+                    <option value="Keamanan">Keamanan</option>
+                    <option value="Pembangunan">Pembangunan</option>
+                    <option value="Operasional RT">Operasional RT</option>
+                </select>
+                <input type="text" class="input-control" id="in-jumlah-keluar" placeholder="Nominal (Rp)" oninput="formatRupiahInput(this)">
+                <button class="btn btn-primary" style="background: linear-gradient(135deg, #c62828 0%, #8e0000 100%);" onclick="tambahPengeluaran()">Simpan Pengeluaran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Status KK -->
+    <div id="tab-kk" class="tab-content hidden">
+        <div class="card">
+            <div class="card-header">🏠 Status Iuran Per KK</div>
+            <div id="kk-container" class="kk-grid"></div>
+        </div>
+    </div>
+
+    <!-- Grafik Ringkasan -->
+    <div class="card">
+        <div class="card-header">📊 Alokasi Pengeluaran</div>
+        <div style="height: 200px;">
+            <canvas id="expenseChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Navigation Bar -->
+<nav class="bottom-nav">
+    <button class="nav-item active" onclick="switchNav('masuk', this)">
+        <span class="nav-icon">📥</span>
+        <span>Pemasukan</span>
+    </button>
+    <button class="nav-item" onclick="switchNav('keluar', this)">
+        <span class="nav-icon">📤</span>
+        <span>Pengeluaran</span>
+    </button>
+    <button class="nav-item" onclick="switchNav('kk', this)">
+        <span class="nav-icon">🏠</span>
+        <span>Status KK</span>
+    </button>
+</nav>
+
+<script>
+const MASTER_WARGA_KK = ["Pak RT 06", "Pak Budi", "Pak Joko", "Pak Santoso", "Pak Agus", "Pak Hendra", "Bu Siti", "Pak Rian"];
+let expenseChart = null;
+
+function switchNav(tab, el) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(`tab-${tab}`).classList.remove('hidden');
+    el.classList.add('active');
+}
+
+function parseRupiah(str) { return Number(String(str).replace(/[^0-9]/g, '')) || 0; }
+function formatRupiahInput(el) { let val = parseRupiah(el.value); el.value = val ? "Rp " + val.toLocaleString('id-ID') : ""; }
+
+function toggleTheme() { document.body.classList.toggle('dark'); }
+
+function initChart() {
+    const ctx = document.getElementById('expenseChart').getContext('2d');
+    expenseChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Kebersihan', 'Keamanan', 'Pembangunan', 'Operasional'],
+            datasets: [{ 
+                data: [30, 25, 25, 20], 
+                backgroundColor: ['#556b2f', '#d4af37', '#b8860b', '#c62828'] 
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
+}
+
+function renderKKStatus() {
+    const container = document.getElementById("kk-container");
+    container.innerHTML = "";
+    MASTER_WARGA_KK.forEach(warga => {
+        const isLunas = Math.random() > 0.3;
+        container.innerHTML += `
+            <div class="kk-card">
+                <div style="font-size:0.8rem; font-weight:700;">${warga}</div>
+                <span class="kk-status ${isLunas ? 'badge-masuk' : 'badge-keluar'}">${isLunas ? 'LUNAS' : 'BELUM'}</span>
+            </div>
+        `;
+    });
+}
+
+window.onload = () => {
+    initChart();
+    renderKKStatus();
+};
+</script>
+</body>
+</html>
