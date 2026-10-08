@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-
 <title>Portal Resmi & Keuangan RT 06</title>
 
 <meta name="theme-color" content="#556b2f">
@@ -20,8 +19,7 @@
 <style>
 :root{
     --bg:#f5f6ee;
-    --bg-soft:#edf0df;
-    --card:#fff;
+    --card:#ffffff;
     --card-soft:#f8f9f3;
     --border:#e1e5d5;
     --text:#252b18;
@@ -44,7 +42,6 @@
 
 body.dark{
     --bg:#15190f;
-    --bg-soft:#1d2415;
     --card:#222a18;
     --card-soft:#28301d;
     --border:#384127;
@@ -56,886 +53,216 @@ body.dark{
     --blue-soft:#1d2b48;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Plus Jakarta Sans',sans-serif;
-    -webkit-tap-highlight-color:transparent;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',sans-serif;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-
-body{
-    min-height:100vh;
-    background:
-        radial-gradient(circle at top right,rgba(197,154,32,.12),transparent 30%),
-        var(--bg);
-    color:var(--text);
-    padding-bottom:calc(var(--nav-height) + 20px);
-}
-
+body{min-height:100vh;background:radial-gradient(circle at top right,rgba(197,154,32,.12),transparent 30%),var(--bg);color:var(--text);padding-bottom:calc(var(--nav-height) + 20px)}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
+.container{width:100%;max-width:680px;margin:auto;padding:14px}
 
-.container{
-    width:100%;
-    max-width:680px;
-    margin:auto;
-    padding:14px;
-}
+/* VIEW SCREENS */
+.view-screen{display:none}
+.view-screen.active{display:block}
 
-/* HEADER */
-.app-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:14px;
-}
+/* DEDICATED LOGIN SCREEN */
+.login-screen{min-height:85vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{width:100%;max-width:400px;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:28px;box-shadow:var(--shadow-lg);text-align:center}
+.login-hero{width:64px;height:64px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;box-shadow:0 8px 20px rgba(85,107,47,.3)}
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
+/* HEADER & CARDS */
+.app-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-icon{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-size:20px;box-shadow:0 5px 14px rgba(85,107,47,.25)}
+.app-title{font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.app-subtitle{margin-top:2px;font-size:.68rem;color:var(--muted);font-weight:600}
 
-.brand-icon{
-    width:42px;
-    height:42px;
-    border-radius:13px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-    color:#fff;
-    font-size:20px;
-    box-shadow:0 5px 14px rgba(85,107,47,.25);
-}
-
-.app-title{
-    font-size:1.05rem;
-    font-weight:800;
-    letter-spacing:-.02em;
-}
-
-.app-subtitle{
-    margin-top:2px;
-    font-size:.68rem;
-    color:var(--muted);
-    font-weight:600;
-}
-
-.header-actions{
-    display:flex;
-    gap:6px;
-}
-
-/* BUTTON */
-.btn{
-    border:0;
-    min-height:42px;
-    padding:10px 14px;
-    border-radius:12px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    font-size:.76rem;
-    font-weight:800;
-    transition:.2s ease;
-    text-decoration:none;
-}
-
+/* BUTTONS */
+.btn{border:0;min-height:42px;padding:10px 14px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:.76rem;font-weight:800;transition:.2s ease;text-decoration:none}
 .btn:active{transform:scale(.96)}
+.btn-primary{color:#fff;background:linear-gradient(135deg,var(--primary),var(--primary-dark));box-shadow:0 5px 15px rgba(85,107,47,.2)}
+.btn-danger{color:#fff;background:linear-gradient(135deg,#d83a3a,#9d1515)}
+.btn-light{color:var(--text);background:var(--card);border:1px solid var(--border)}
+.btn-gold{color:#fff;background:linear-gradient(135deg,#c59a20,#987313)}
+.btn-blue{color:#fff;background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.btn-sm{min-height:34px;padding:6px 10px;border-radius:9px;font-size:.66rem}
 
-.btn-primary{
-    color:#fff;
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-    box-shadow:0 5px 15px rgba(85,107,47,.2);
-}
+/* SALDO CARD */
+.balance-card{position:relative;overflow:hidden;color:#fff;padding:18px;border-radius:22px;margin-bottom:14px;background:radial-gradient(circle at 90% 10%,rgba(255,255,255,.16),transparent 28%),linear-gradient(135deg,#5d7433,#3c4d21 60%,#8e6c16);box-shadow:var(--shadow-lg)}
+.balance-label{font-size:.65rem;opacity:.85;font-weight:700;letter-spacing:.05em}
+.balance-amount{font-size:1.8rem;line-height:1.15;font-weight:800;margin:6px 0 14px;letter-spacing:-.03em}
+.balance-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.balance-stat{padding:10px;border-radius:12px;background:rgba(0,0,0,.18);backdrop-filter:blur(8px)}
+.balance-stat-label{font-size:.6rem;opacity:.8;margin-bottom:2px}
+.balance-stat-value{font-size:.8rem;font-weight:800}
 
-.btn-danger{
-    color:#fff;
-    background:linear-gradient(135deg,#d83a3a,#9d1515);
-}
+/* CARDS & FORM */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:15px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.card-title{font-size:.82rem;font-weight:800}
+.card-subtitle{font-size:.64rem;color:var(--muted);margin-top:2px}
 
-.btn-light{
-    color:var(--text);
-    background:var(--card);
-    border:1px solid var(--border);
-}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.quick-card{padding:12px 8px;background:var(--card);border:1px solid var(--border);border-radius:14px;text-align:center;box-shadow:var(--shadow)}
+.quick-icon{font-size:18px;margin-bottom:4px}
+.quick-label{color:var(--muted);font-size:.58rem;font-weight:600}
+.quick-value{margin-top:2px;font-size:.75rem;font-weight:800}
 
-.btn-gold{
-    color:#fff;
-    background:linear-gradient(135deg,#c59a20,#987313);
-}
+.form-group{display:flex;flex-direction:column;gap:10px}
+.input-control{width:100%;min-height:42px;padding:10px 12px;border:1px solid var(--border);border-radius:11px;outline:none;background:var(--card-soft);color:var(--text);font-size:.76rem;transition:.2s ease}
+.input-control:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(85,107,47,.12)}
+.input-label{display:block;margin-bottom:4px;font-size:.65rem;font-weight:700;color:var(--muted)}
+textarea.input-control{resize:vertical;min-height:80px}
 
-.btn-blue{
-    color:#fff;
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
-}
-
-.btn-sm{
-    min-height:34px;
-    padding:6px 10px;
-    border-radius:9px;
-    font-size:.66rem;
-}
-
-.btn-icon{
-    width:38px;
-    height:38px;
-    padding:0;
-}
-
-/* SALDO */
-.balance-card{
-    position:relative;
-    overflow:hidden;
-    color:#fff;
-    padding:18px;
-    border-radius:22px;
-    margin-bottom:14px;
-    background:
-        radial-gradient(circle at 90% 10%,rgba(255,255,255,.16),transparent 28%),
-        linear-gradient(135deg,#5d7433,#3c4d21 60%,#8e6c16);
-    box-shadow:var(--shadow-lg);
-}
-
-.balance-label{
-    font-size:.65rem;
-    opacity:.85;
-    font-weight:700;
-    letter-spacing:.05em;
-}
-
-.balance-amount{
-    font-size:1.8rem;
-    line-height:1.15;
-    font-weight:800;
-    margin:6px 0 14px;
-    letter-spacing:-.03em;
-}
-
-.balance-stats{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-}
-
-.balance-stat{
-    padding:10px;
-    border-radius:12px;
-    background:rgba(0,0,0,.18);
-    backdrop-filter:blur(8px);
-}
-
-.balance-stat-label{
-    font-size:.6rem;
-    opacity:.8;
-    margin-bottom:2px;
-}
-
-.balance-stat-value{
-    font-size:.8rem;
-    font-weight:800;
-}
-
-/* CARD */
-.card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:15px;
-    margin-bottom:14px;
-    box-shadow:var(--shadow);
-}
-
-.card-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:12px;
-}
-
-.card-title{
-    font-size:.82rem;
-    font-weight:800;
-}
-
-.card-subtitle{
-    font-size:.64rem;
-    color:var(--muted);
-    margin-top:2px;
-}
-
-/* QUICK */
-.quick-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    margin-bottom:14px;
-}
-
-.quick-card{
-    padding:12px 8px;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:14px;
-    text-align:center;
-    box-shadow:var(--shadow);
-}
-
-.quick-icon{
-    font-size:18px;
-    margin-bottom:4px;
-}
-
-.quick-label{
-    color:var(--muted);
-    font-size:.58rem;
-    font-weight:600;
-}
-
-.quick-value{
-    margin-top:2px;
-    font-size:.75rem;
-    font-weight:800;
-}
-
-/* FORM */
-.form-group{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.input-control{
-    width:100%;
-    min-height:42px;
-    padding:10px 12px;
-    border:1px solid var(--border);
-    border-radius:11px;
-    outline:none;
-    background:var(--card-soft);
-    color:var(--text);
-    font-size:.76rem;
-    transition:.2s ease;
-}
-
-.input-control:focus{
-    border-color:var(--primary);
-    box-shadow:0 0 0 3px rgba(85,107,47,.12);
-}
-
-.input-label{
-    display:block;
-    margin-bottom:4px;
-    font-size:.65rem;
-    font-weight:700;
-    color:var(--muted);
-}
-
-textarea.input-control{
-    resize:vertical;
-    min-height:80px;
-}
-
-/* TAB */
-.section-tabs{
-    display:flex;
-    gap:5px;
-    margin-bottom:14px;
-    overflow-x:auto;
-    padding-bottom:4px;
-    scrollbar-width:none;
-}
-
+/* TABS */
+.section-tabs{display:flex;gap:5px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
 .section-tabs::-webkit-scrollbar{display:none}
+.section-tab{flex:1;min-width:85px;min-height:40px;border:1px solid var(--border);border-radius:11px;background:var(--card);color:var(--muted);font-size:.64rem;font-weight:800;transition:.2s ease;white-space:nowrap;padding:0 8px}
+.section-tab.active{color:#fff;background:var(--primary);border-color:var(--primary);box-shadow:0 4px 12px rgba(85,107,47,.18)}
 
-.section-tab{
-    flex:1;
-    min-width:85px;
-    min-height:40px;
-    border:1px solid var(--border);
-    border-radius:11px;
-    background:var(--card);
-    color:var(--muted);
-    font-size:.64rem;
-    font-weight:800;
-    transition:.2s ease;
-    white-space:nowrap;
-    padding:0 8px;
-}
-
-.section-tab.active{
-    color:#fff;
-    background:var(--primary);
-    border-color:var(--primary);
-    box-shadow:0 4px 12px rgba(85,107,47,.18);
-}
-
-/* SEARCH */
-.search-box{
-    position:relative;
-    margin-bottom:10px;
-}
-
-.search-box span{
-    position:absolute;
-    left:12px;
-    top:50%;
-    transform:translateY(-50%);
-    color:var(--muted);
-    font-size:13px;
-}
-
-.search-box input{
-    padding-left:34px;
-}
-
-/* TABLE */
-.table-wrap{
-    overflow-x:auto;
-    margin:0 -4px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    font-size:.68rem;
-}
-
-th{
-    color:var(--muted);
-    font-size:.58rem;
-    font-weight:800;
-    text-transform:uppercase;
-    padding:8px;
-    white-space:nowrap;
-    border-bottom:1px solid var(--border);
-}
-
-td{
-    padding:10px 8px;
-    border-bottom:1px solid var(--border);
-    vertical-align:middle;
-}
-
-tbody tr:last-child td{border-bottom:0}
-
-.transaction-title{
-    font-weight:800;
-    color:var(--text);
-}
-
-.transaction-sub{
-    margin-top:2px;
-    color:var(--muted);
-    font-size:.58rem;
-}
-
-.amount{
-    white-space:nowrap;
-    font-weight:800;
-}
-
+/* TABLE & STATUS */
+.table-wrap{overflow-x:auto;margin:0 -4px}
+table{width:100%;border-collapse:collapse;font-size:.68rem}
+th{color:var(--muted);font-size:.58rem;font-weight:800;text-transform:uppercase;padding:8px;white-space:nowrap;border-bottom:1px solid var(--border)}
+td{padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:middle}
+.transaction-title{font-weight:800;color:var(--text)}
+.transaction-sub{margin-top:2px;color:var(--muted);font-size:.58rem}
+.amount{white-space:nowrap;font-weight:800}
 .amount.masuk{color:var(--green)}
 .amount.keluar{color:var(--red)}
 
-.badge{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding:3px 7px;
-    border-radius:20px;
-    font-size:.55rem;
-    font-weight:800;
-    white-space:nowrap;
-}
+.badge{display:inline-flex;align-items:center;justify-content:center;padding:3px 7px;border-radius:20px;font-size:.55rem;font-weight:800;white-space:nowrap}
+.badge-masuk{color:var(--green);background:var(--green-soft)}
+.badge-keluar{color:var(--red);background:var(--red-soft)}
+.badge-pending{color:var(--gold);background:rgba(197,154,32,0.15)}
 
-.badge-masuk{
-    color:var(--green);
-    background:var(--green-soft);
-}
+.kk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.kk-card{padding:11px;border:1px solid var(--border);border-radius:13px;background:var(--card-soft)}
+.kk-top{display:flex;align-items:center;justify-content:space-between;gap:5px}
+.kk-name{font-size:.68rem;font-weight:800}
+.kk-month{margin-top:6px;color:var(--muted);font-size:.58rem}
 
-.badge-keluar{
-    color:var(--red);
-    background:var(--red-soft);
-}
+.info-card-item{padding:12px;border:1px solid var(--border);border-radius:13px;background:var(--card-soft);margin-bottom:10px;position:relative}
+.info-tag{display:inline-block;font-size:.56rem;font-weight:800;padding:2px 6px;border-radius:6px;background:var(--primary-soft);color:var(--primary);margin-bottom:5px}
+.info-date{font-size:.56rem;color:var(--muted);float:right}
+.info-title{font-size:.76rem;font-weight:800;color:var(--text);margin-bottom:4px}
+.info-body{font-size:.67rem;color:var(--muted);line-height:1.5}
 
-.badge-blue{
-    color:var(--blue);
-    background:var(--blue-soft);
-}
+.emergency-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.emergency-btn{display:flex;align-items:center;gap:8px;padding:10px;border-radius:13px;border:1px solid var(--border);background:var(--card-soft);text-decoration:none;color:var(--text)}
+.emergency-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--red-soft);color:var(--red)}
 
-.badge-pending{
-    color:var(--gold);
-    background:rgba(197,154,32,0.15);
-}
+.chart-box{height:210px}
 
-/* KK */
-.kk-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:8px;
-}
+.bottom-nav{position:fixed;z-index:1000;left:0;right:0;bottom:0;height:var(--nav-height);display:flex;align-items:center;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);border-top:1px solid var(--border);backdrop-filter:blur(18px)}
+body.dark .bottom-nav{background:rgba(34,42,24,.95)}
+.nav-item{flex:1;height:52px;border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.54rem;font-weight:700;border-radius:10px}
+.nav-item.active{color:var(--primary);background:var(--primary-soft)}
 
-.kk-card{
-    padding:11px;
-    border:1px solid var(--border);
-    border-radius:13px;
-    background:var(--card-soft);
-}
+#toast{position:fixed;z-index:5000;top:15px;left:50%;transform:translate(-50%,-20px);opacity:0;visibility:hidden;padding:9px 14px;border-radius:30px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-lg);font-size:.68rem;font-weight:800;transition:.25s ease}
+#toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.loader-overlay{position:fixed;inset:0;z-index:4000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);backdrop-filter:blur(4px)}
+.loader-card{padding:16px 18px;border-radius:15px;background:var(--card);font-size:.7rem;font-weight:800}
 
-.kk-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:5px;
-}
-
-.kk-name{
-    font-size:.68rem;
-    font-weight:800;
-}
-
-.kk-month{
-    margin-top:6px;
-    color:var(--muted);
-    font-size:.58rem;
-}
-
-/* PENGUMUMAN */
-.info-card-item{
-    padding:12px;
-    border:1px solid var(--border);
-    border-radius:13px;
-    background:var(--card-soft);
-    margin-bottom:10px;
-    position:relative;
-}
-
-.info-card-item:last-child{margin-bottom:0}
-
-.info-tag{
-    display:inline-block;
-    font-size:.56rem;
-    font-weight:800;
-    padding:2px 6px;
-    border-radius:6px;
-    background:var(--primary-soft);
-    color:var(--primary);
-    margin-bottom:5px;
-}
-
-.info-date{
-    font-size:.56rem;
-    color:var(--muted);
-    float:right;
-}
-
-.info-title{
-    font-size:.76rem;
-    font-weight:800;
-    color:var(--text);
-    margin-bottom:4px;
-}
-
-.info-body{
-    font-size:.67rem;
-    color:var(--muted);
-    line-height:1.5;
-}
-
-/* DARURAT */
-.emergency-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:8px;
-}
-
-.emergency-btn{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px;
-    border-radius:13px;
-    border:1px solid var(--border);
-    background:var(--card-soft);
-    text-decoration:none;
-    color:var(--text);
-    transition:.2s ease;
-}
-
-.emergency-btn:active{transform:scale(.97)}
-
-.emergency-icon{
-    width:34px;
-    height:34px;
-    border-radius:9px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:16px;
-    background:var(--red-soft);
-    color:var(--red);
-}
-
-/* CHART */
-.chart-box{
-    height:210px;
-}
-
-/* BOTTOM NAV */
-.bottom-nav{
-    position:fixed;
-    z-index:1000;
-    left:0;
-    right:0;
-    bottom:0;
-    height:var(--nav-height);
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-    padding:6px 4px calc(6px + env(safe-area-inset-bottom));
-    background:rgba(255,255,255,.95);
-    border-top:1px solid var(--border);
-    backdrop-filter:blur(18px);
-    box-shadow:0 -8px 25px rgba(0,0,0,.06);
-}
-
-body.dark .bottom-nav{
-    background:rgba(34,42,24,.95);
-}
-
-.nav-item{
-    flex:1;
-    height:52px;
-    border:0;
-    background:transparent;
-    color:var(--muted);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:2px;
-    font-size:.54rem;
-    font-weight:700;
-    border-radius:10px;
-}
-
-.nav-icon{
-    font-size:17px;
-    line-height:1;
-}
-
-.nav-item.active{
-    color:var(--primary);
-    background:var(--primary-soft);
-}
-
-body.dark .nav-item.active{
-    color:#c9d99d;
-}
-
-/* MODAL */
-.modal-overlay{
-    position:fixed;
-    z-index:3000;
-    inset:0;
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-    padding:12px;
-    background:rgba(0,0,0,.55);
-    backdrop-filter:blur(5px);
-    opacity:0;
-    visibility:hidden;
-    transition:.25s ease;
-}
-
-.modal-overlay.show{
-    opacity:1;
-    visibility:visible;
-}
-
-.modal-card{
-    width:100%;
-    max-width:480px;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:22px 22px 15px 15px;
-    padding:18px;
-    transform:translateY(30px);
-    transition:.25s ease;
-}
-
-.modal-overlay.show .modal-card{
-    transform:translateY(0);
-}
-
-.modal-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:14px;
-}
-
-.modal-title{
-    font-size:.88rem;
-    font-weight:800;
-}
-
-/* TOAST */
-#toast{
-    position:fixed;
-    z-index:5000;
-    top:15px;
-    left:50%;
-    transform:translate(-50%,-20px);
-    opacity:0;
-    visibility:hidden;
-    max-width:calc(100% - 30px);
-    padding:9px 14px;
-    border-radius:30px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    background:var(--card);
-    border:1px solid var(--border);
-    color:var(--text);
-    box-shadow:var(--shadow-lg);
-    font-size:.68rem;
-    font-weight:800;
-    transition:.25s ease;
-}
-
-#toast.show{
-    opacity:1;
-    visibility:visible;
-    transform:translate(-50%,0);
-}
-
-/* LOADER */
-.loader-overlay{
-    position:fixed;
-    inset:0;
-    z-index:4000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,0,0,.35);
-    backdrop-filter:blur(4px);
-}
-
-.loader-card{
-    padding:16px 18px;
-    border-radius:15px;
-    background:var(--card);
-    color:var(--text);
-    box-shadow:var(--shadow-lg);
-    font-size:.7rem;
-    font-weight:800;
-}
-
-/* STATUS ONLINE */
-.connection-status{
-    display:flex;
-    align-items:center;
-    gap:5px;
-    margin-top:3px;
-    font-size:.55rem;
-    font-weight:700;
-    color:var(--muted);
-}
-
-.status-dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#aaa;
-}
-
+.connection-status{display:flex;align-items:center;gap:5px;margin-top:3px;font-size:.55rem;font-weight:700;color:var(--muted)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#aaa}
 .status-dot.online{background:#2e7d32}
 .status-dot.offline{background:#c62828}
 
-/* EMPTY */
-.empty-state{
-    text-align:center;
-    padding:20px 10px;
-    color:var(--muted);
-}
+.empty-state{text-align:center;padding:20px 10px;color:var(--muted)}
+.empty-icon{font-size:28px;margin-bottom:5px}
+.empty-title{font-size:.72rem;font-weight:800;color:var(--text)}
+.empty-text{margin-top:3px;font-size:.61rem}
+.sync-info{margin-top:8px;text-align:right;font-size:.54rem;color:var(--muted)}
 
-.empty-icon{
-    font-size:28px;
-    margin-bottom:5px;
-}
-
-.empty-title{
-    font-size:.72rem;
-    font-weight:800;
-    color:var(--text);
-}
-
-.empty-text{
-    margin-top:3px;
-    font-size:.61rem;
-}
-
-/* LAST SYNC */
-.sync-info{
-    margin-top:8px;
-    text-align:right;
-    font-size:.54rem;
-    color:var(--muted);
-}
-
-/* RESPONSIVE */
-@media(max-width:380px){
-    .container{padding:10px}
-    .balance-amount{font-size:1.55rem}
-    .kk-grid,
-    .emergency-grid{
-        grid-template-columns:1fr;
-    }
-}
+@media(max-width:380px){.container{padding:10px}.balance-amount{font-size:1.55rem}.kk-grid,.emergency-grid{grid-template-columns:1fr}}
 </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
 <div id="loader" class="loader-overlay hidden">
-    <div class="loader-card" id="loader-text">
-        ⏳ Menyinkronkan Portal RT 06...
-    </div>
+    <div class="loader-card" id="loader-text">⏳ Memproses...</div>
 </div>
 
-<!-- TOAST -->
 <div id="toast">
-    <span id="toast-icon">✓</span>
-    <span id="toast-msg">Notifikasi</span>
-</div>
-
-<!-- LOGIN MODAL -->
-<div id="modal-login" class="modal-overlay" onclick="closeLoginOutside(event)">
-    <div class="modal-card">
-        <div class="modal-head">
-            <div>
-                <div class="modal-title">Login Pengurus RT 06</div>
-                <div class="card-subtitle">Khusus pengurus untuk input data & edaran</div>
-            </div>
-            <button class="btn btn-light btn-icon" onclick="closeModalLogin()" aria-label="Tutup Modal">✕</button>
-        </div>
-
-        <div class="form-group" id="login-form-box">
-            <div>
-                <label for="login-user" class="input-label">Username</label>
-                <input id="login-user" class="input-control" type="text" autocomplete="username" placeholder="Masukkan username">
-            </div>
-
-            <div>
-                <label for="login-pass" class="input-label">Password</label>
-                <input id="login-pass" class="input-control" type="password" autocomplete="current-password" placeholder="Masukkan password">
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
-                <button class="btn btn-light" onclick="closeModalLogin()">Batal</button>
-                <button class="btn btn-primary" onclick="handleLogin()">Masuk</button>
-            </div>
-        </div>
-    </div>
+    <span id="toast-icon">✓</span> <span id="toast-msg">Notifikasi</span>
 </div>
 
 <div class="container">
 
-<!-- HEADER -->
-<header class="app-header">
-    <div class="brand">
-        <div class="brand-icon">🏛️</div>
-        <div>
-            <div class="app-title">Portal RT 06</div>
-            <div class="app-subtitle" id="user-role-text">Pusat Informasi & Kas Warga</div>
-            <div class="connection-status">
-                <span id="connection-dot" class="status-dot"></span>
-                <span id="connection-text">Memeriksa koneksi...</span>
+<!-- ================= SCREEN 1: PORTAL UTAMA WARGA ================= -->
+<main id="screen-portal" class="view-screen active">
+    
+    <header class="app-header">
+        <div class="brand">
+            <div class="brand-icon">🏛️</div>
+            <div>
+                <div class="app-title">Portal RT 06</div>
+                <div class="app-subtitle" id="user-role-text">Pusat Informasi & Kas Warga</div>
+                <div class="connection-status">
+                    <span id="connection-dot" class="status-dot"></span>
+                    <span id="connection-text">Memeriksa koneksi...</span>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="header-actions">
-        <button class="btn btn-light btn-icon" onclick="toggleTheme()" title="Mode Gelap/Terang" aria-label="Ganti Tema">🌓</button>
-        <button id="btn-auth-action" class="btn btn-primary btn-sm" onclick="openModalLogin()">🔑 Login</button>
-    </div>
-</header>
-
-<!-- SALDO -->
-<section class="balance-card">
-    <div class="balance-label">SISA SALDO KAS WARGA RT 06</div>
-    <div id="stat-saldo" class="balance-amount">Rp 0</div>
-
-    <div class="balance-stats">
-        <div class="balance-stat">
-            <div class="balance-stat-label">TOTAL PEMASUKAN</div>
-            <div id="stat-masuk" class="balance-stat-value">Rp 0</div>
+        <div class="header-actions">
+            <button class="btn btn-light btn-icon" onclick="toggleTheme()" title="Ganti Tema">🌓</button>
+            <button id="btn-auth-action" class="btn btn-primary btn-sm" onclick="showScreen('screen-login')">🔑 Pengurus</button>
         </div>
-        <div class="balance-stat">
-            <div class="balance-stat-label">TOTAL PENGELUARAN</div>
-            <div id="stat-keluar" class="balance-stat-value">Rp 0</div>
-        </div>
-    </div>
-</section>
+    </header>
 
-<!-- QUICK INFO -->
-<section class="quick-grid">
-    <div class="quick-card">
-        <div class="quick-icon">👨‍👩‍👧‍👦</div>
-        <div class="quick-label">TOTAL KK</div>
-        <div class="quick-value" id="quick-kk">0 KK</div>
-    </div>
-    <div class="quick-card">
-        <div class="quick-icon">📢</div>
-        <div class="quick-label">PENGUMUMAN</div>
-        <div class="quick-value" id="quick-pengumuman">0 Agenda</div>
-    </div>
-    <div class="quick-card">
-        <div class="quick-icon">📄</div>
-        <div class="quick-label">SURAT E-RT</div>
-        <div class="quick-value">Aktif</div>
-    </div>
-</section>
-
-<!-- TAB -->
-<div class="section-tabs">
-    <button id="tab-button-info" class="section-tab active" onclick="switchNav('info')">📢 Informasi</button>
-    <button id="tab-button-surat" class="section-tab" onclick="switchNav('surat')">📄 E-Surat</button>
-    <button id="tab-button-masuk" class="section-tab" onclick="switchNav('masuk')">📥 Kas Masuk</button>
-    <button id="tab-button-keluar" class="section-tab" onclick="switchNav('keluar')">📤 Kas Keluar</button>
-    <button id="tab-button-kk" class="section-tab" onclick="switchNav('kk')">🏠 Status KK</button>
-</div>
-
-<!-- ========================= TAB INFORMASI ========================= -->
-<section id="tab-info" class="tab-content">
-    <div class="card role-editor-only hidden" id="box-pengumuman-form">
-        <div class="card-header">
-            <div>
-                <div class="card-title">Buat Pengumuman Baru</div>
-                <div class="card-subtitle">Publikasikan edaran atau agenda ke seluruh warga</div>
+    <!-- SALDO CARD -->
+    <section class="balance-card">
+        <div class="balance-label">SISA SALDO KAS WARGA RT 06</div>
+        <div id="stat-saldo" class="balance-amount">Rp 0</div>
+        <div class="balance-stats">
+            <div class="balance-stat">
+                <div class="balance-stat-label">TOTAL PEMASUKAN</div>
+                <div id="stat-masuk" class="balance-stat-value">Rp 0</div>
+            </div>
+            <div class="balance-stat">
+                <div class="balance-stat-label">TOTAL PENGELUARAN</div>
+                <div id="stat-keluar" class="balance-stat-value">Rp 0</div>
             </div>
         </div>
+    </section>
 
-        <div class="form-group">
-            <div>
-                <label for="in-info-judul" class="input-label">Judul Pengumuman</label>
-                <input id="in-info-judul" class="input-control" type="text" maxlength="100" placeholder="Contoh: Kerja Bakti Kebersihan Selokan">
-            </div>
+    <!-- QUICK INFO -->
+    <section class="quick-grid">
+        <div class="quick-card">
+            <div class="quick-icon">👨‍👩‍👧‍👦</div>
+            <div class="quick-label">TOTAL KK</div>
+            <div class="quick-value" id="quick-kk">0 KK</div>
+        </div>
+        <div class="quick-card">
+            <div class="quick-icon">📢</div>
+            <div class="quick-label">PENGUMUMAN</div>
+            <div class="quick-value" id="quick-pengumuman">0 Agenda</div>
+        </div>
+        <div class="quick-card">
+            <div class="quick-icon">📄</div>
+            <div class="quick-label">SURAT E-RT</div>
+            <div class="quick-value">Aktif</div>
+        </div>
+    </section>
 
-            <div>
-                <label for="in-info-kat" class="input-label">Kategori</label>
+    <!-- TABS -->
+    <div class="section-tabs">
+        <button id="tab-button-info" class="section-tab active" onclick="switchNav('info')">📢 Informasi</button>
+        <button id="tab-button-surat" class="section-tab" onclick="switchNav('surat')">📄 E-Surat</button>
+        <button id="tab-button-masuk" class="section-tab" onclick="switchNav('masuk')">📥 Kas Masuk</button>
+        <button id="tab-button-keluar" class="section-tab" onclick="switchNav('keluar')">📤 Kas Keluar</button>
+        <button id="tab-button-kk" class="section-tab" onclick="switchNav('kk')">🏠 Status KK</button>
+        <button id="tab-button-warga" class="section-tab role-editor-only hidden" onclick="switchNav('warga')">⚙️ Kelola Warga</button>
+    </div>
+
+    <!-- TAB: INFORMASI -->
+    <section id="tab-info" class="tab-content">
+        <div class="card role-editor-only hidden" id="box-pengumuman-form">
+            <div class="card-header"><div class="card-title">Buat Pengumuman Baru</div></div>
+            <div class="form-group">
+                <input id="in-info-judul" class="input-control" type="text" maxlength="100" placeholder="Judul Pengumuman">
                 <select id="in-info-kat" class="input-control">
                     <option>Kerja Bakti</option>
                     <option>Posyandu & Kesehatan</option>
@@ -943,96 +270,59 @@ body.dark .nav-item.active{
                     <option>Berita Duka</option>
                     <option>Edaran RT</option>
                 </select>
-            </div>
-
-            <div>
-                <label for="in-info-isi" class="input-label">Isi Pengumuman</label>
-                <textarea id="in-info-isi" class="input-control" rows="3" maxlength="1000" placeholder="Tuliskan rincian agenda, waktu, dan tempat..."></textarea>
-            </div>
-
-            <button class="btn btn-primary" onclick="tambahPengumuman()">📢 Publikasikan Pengumuman</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <div>
-                <div class="card-title">📌 Pengumuman & Agenda RT 06</div>
-                <div class="card-subtitle">Informasi kegiatan & edaran resmi lingkungan</div>
-            </div>
-        </div>
-        <div id="pengumuman-list-container"></div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <div>
-                <div class="card-title">🚨 Nomor Darurat & Pengurus</div>
-                <div class="card-subtitle">Panggil cepat saat diperlukan</div>
+                <textarea id="in-info-isi" class="input-control" rows="3" maxlength="1000" placeholder="Isi pengumuman lengkap..."></textarea>
+                <button class="btn btn-primary" onclick="tambahPengumuman()">📢 Publikasikan Pengumuman</button>
             </div>
         </div>
 
-        <div class="emergency-grid">
-            <a id="wa-rt-link" href="#" target="_blank" rel="noopener noreferrer" class="emergency-btn">
-                <div class="emergency-icon">👨‍✈️</div>
-                <div>
-                    <div style="font-size:.68rem;font-weight:800">Pak RT 06</div>
-                    <div style="font-size:.56rem;color:var(--muted)">Ketua RT</div>
-                </div>
-            </a>
-            <a href="tel:112" class="emergency-btn">
-                <div class="emergency-icon">🚑</div>
-                <div>
-                    <div style="font-size:.68rem;font-weight:800">Darurat / 112</div>
-                    <div style="font-size:.56rem;color:var(--muted)">Layanan darurat</div>
-                </div>
-            </a>
-            <a href="tel:110" class="emergency-btn">
-                <div class="emergency-icon">🚔</div>
-                <div>
-                    <div style="font-size:.68rem;font-weight:800">Polisi / 110</div>
-                    <div style="font-size:.56rem;color:var(--muted)">Keamanan</div>
-                </div>
-            </a>
-            <a href="tel:113" class="emergency-btn">
-                <div class="emergency-icon">🔥</div>
-                <div>
-                    <div style="font-size:.68rem;font-weight:800">Pemadam / 113</div>
-                    <div style="font-size:.56rem;color:var(--muted)">Kebakaran</div>
-                </div>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- ========================= E-SURAT ========================= -->
-<section id="tab-surat" class="tab-content hidden">
-    <div class="card">
-        <div class="card-header">
-            <div>
-                <div class="card-title">📄 Pengajuan Surat Pengantar RT</div>
-                <div class="card-subtitle">Permohonan dokumen resmi RT melalui WhatsApp</div>
-            </div>
+        <div class="card">
+            <div class="card-header"><div class="card-title">📌 Pengumuman & Agenda RT 06</div></div>
+            <div id="pengumuman-list-container"></div>
         </div>
 
-        <div class="form-group">
-            <div>
-                <label for="surat-nama" class="input-label">Nama Lengkap Pemohon</label>
-                <input id="surat-nama" class="input-control" type="text" maxlength="100" autocomplete="name" placeholder="Nama sesuai KTP">
+        <div class="card">
+            <div class="card-header"><div class="card-title">🚨 Nomor Darurat & Pengurus</div></div>
+            <div class="emergency-grid">
+                <a id="wa-rt-link" href="#" target="_blank" class="emergency-btn">
+                    <div class="emergency-icon">👨‍✈️</div>
+                    <div>
+                        <div style="font-size:.68rem;font-weight:800">Pak RT 06</div>
+                        <div style="font-size:.56rem;color:var(--muted)">Ketua RT</div>
+                    </div>
+                </a>
+                <a href="tel:112" class="emergency-btn">
+                    <div class="emergency-icon">🚑</div>
+                    <div>
+                        <div style="font-size:.68rem;font-weight:800">Darurat / 112</div>
+                        <div style="font-size:.56rem;color:var(--muted)">Layanan darurat</div>
+                    </div>
+                </a>
+                <a href="tel:110" class="emergency-btn">
+                    <div class="emergency-icon">🚔</div>
+                    <div>
+                        <div style="font-size:.68rem;font-weight:800">Polisi / 110</div>
+                        <div style="font-size:.56rem;color:var(--muted)">Keamanan</div>
+                    </div>
+                </a>
+                <a href="tel:113" class="emergency-btn">
+                    <div class="emergency-icon">🔥</div>
+                    <div>
+                        <div style="font-size:.68rem;font-weight:800">Pemadam / 113</div>
+                        <div style="font-size:.56rem;color:var(--muted)">Kebakaran</div>
+                    </div>
+                </a>
             </div>
+        </div>
+    </section>
 
-            <div>
-                <label for="surat-nik" class="input-label">NIK (16 Digit)</label>
-                <input id="surat-nik" class="input-control" type="text" inputmode="numeric" maxlength="16" autocomplete="off" placeholder="16 digit NIK">
-            </div>
-
-            <div>
-                <label for="surat-kk" class="input-label">Nomor KK (16 Digit)</label>
-                <input id="surat-kk" class="input-control" type="text" inputmode="numeric" maxlength="16" autocomplete="off" placeholder="16 digit nomor KK">
-            </div>
-
-            <div>
-                <label for="surat-jenis" class="input-label">Jenis Surat Pengantar</label>
+    <!-- TAB: E-SURAT -->
+    <section id="tab-surat" class="tab-content hidden">
+        <div class="card">
+            <div class="card-header"><div class="card-title">📄 Pengajuan Surat Pengantar RT</div></div>
+            <div class="form-group">
+                <input id="surat-nama" class="input-control" type="text" placeholder="Nama Lengkap sesuai KTP">
+                <input id="surat-nik" class="input-control" type="text" inputmode="numeric" maxlength="16" placeholder="16 digit NIK">
+                <input id="surat-kk" class="input-control" type="text" inputmode="numeric" maxlength="16" placeholder="16 digit Nomor KK">
                 <select id="surat-jenis" class="input-control">
                     <option>Pengantar KTP / KK Baru</option>
                     <option>Surat Keterangan Domisili</option>
@@ -1041,214 +331,198 @@ body.dark .nav-item.active{
                     <option>Surat Keterangan Usaha (SKU)</option>
                     <option>Lainnya</option>
                 </select>
-            </div>
-
-            <div>
-                <label for="surat-keperluan" class="input-label">Keperluan / Keterangan Tambahan</label>
-                <textarea id="surat-keperluan" class="input-control" rows="2" maxlength="500" placeholder="Jelaskan alasan/tujuan pembuatan surat..."></textarea>
-            </div>
-
-            <button class="btn btn-blue" onclick="kirimPermohonanSurat()">📲 Ajukan Surat Ke Pak RT</button>
-            <div style="font-size:.55rem;color:var(--muted);margin-top:2px;">
-                🔒 Data NIK/KK Anda disamarkan saat proses pengiriman WhatsApp demi menjaga kerahasiaan identitas.
+                <textarea id="surat-keperluan" class="input-control" rows="2" placeholder="Keperluan / Keterangan tambahan..."></textarea>
+                <button class="btn btn-blue" onclick="kirimPermohonanSurat()">📲 Ajukan Surat Ke Pak RT</button>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ========================= KAS MASUK ========================= -->
-<section id="tab-masuk" class="tab-content hidden">
-    <div id="box-masuk" class="card role-editor-only hidden">
-        <div class="card-header">
-            <div>
-                <div class="card-title">Catat Iuran Warga</div>
-                <div class="card-subtitle">Input pembayaran kas bulanan / donasi</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div>
-                <label for="in-nama" class="input-label">Nama Warga</label>
-                <input id="in-nama" class="input-control" type="text" list="warga-list" maxlength="100" placeholder="Pilih atau ketik nama warga...">
+    <!-- TAB: KAS MASUK -->
+    <section id="tab-masuk" class="tab-content hidden">
+        <div id="box-masuk" class="card role-editor-only hidden">
+            <div class="card-header"><div class="card-title">Catat Iuran Warga</div></div>
+            <div class="form-group">
+                <input id="in-nama" class="input-control" type="text" list="warga-list" placeholder="Pilih atau ketik nama warga...">
                 <datalist id="warga-list"></datalist>
-            </div>
-
-            <div>
-                <label for="in-kat-masuk" class="input-label">Kategori Iuran</label>
                 <select id="in-kat-masuk" class="input-control">
                     <option>Iuran Kas Bulanan</option>
                     <option>Iuran Kebersihan</option>
                     <option>Iuran Keamanan</option>
                     <option>Donatur / Pembangunan</option>
                 </select>
-            </div>
-
-            <div>
-                <label for="in-jumlah-masuk" class="input-label">Nominal (Rp)</label>
-                <input id="in-jumlah-masuk" class="input-control" type="text" inputmode="numeric" placeholder="Rp 0" oninput="formatRupiahInput(this)">
-            </div>
-
-            <button class="btn btn-primary" onclick="tambahPemasukan()">+ Simpan Iuran</button>
-        </div>
-    </div>
-</section>
-
-<!-- ========================= KAS KELUAR ========================= -->
-<section id="tab-keluar" class="tab-content hidden">
-    <div id="box-keluar" class="card role-editor-only hidden">
-        <div class="card-header">
-            <div>
-                <div class="card-title">Catat Pengeluaran RT</div>
-                <div class="card-subtitle">Input biaya operasional & pemeliharaan</div>
+                <input id="in-jumlah-masuk" class="input-control" type="text" inputmode="numeric" placeholder="Nominal (Rp)" oninput="formatRupiahInput(this)">
+                <button class="btn btn-primary" onclick="tambahPemasukan()">+ Simpan Iuran</button>
             </div>
         </div>
+    </section>
 
-        <div class="form-group">
-            <div>
-                <label for="in-ket" class="input-label">Keterangan Biaya</label>
-                <input id="in-ket" class="input-control" type="text" maxlength="150" placeholder="Contoh: Perbaikan penerangan jalan">
-            </div>
-
-            <div>
-                <label for="in-kat-keluar" class="input-label">Kategori Biaya</label>
+    <!-- TAB: KAS KELUAR -->
+    <section id="tab-keluar" class="tab-content hidden">
+        <div id="box-keluar" class="card role-editor-only hidden">
+            <div class="card-header"><div class="card-title">Catat Pengeluaran RT</div></div>
+            <div class="form-group">
+                <input id="in-ket" class="input-control" type="text" placeholder="Keterangan pengeluaran...">
                 <select id="in-kat-keluar" class="input-control">
                     <option>Kebersihan</option>
                     <option>Keamanan</option>
                     <option>Pembangunan</option>
                     <option>Operasional RT</option>
                 </select>
+                <input id="in-jumlah-keluar" class="input-control" type="text" inputmode="numeric" placeholder="Nominal (Rp)" oninput="formatRupiahInput(this)">
+                <button class="btn btn-danger" onclick="tambahPengeluaran()">+ Simpan Pengeluaran</button>
             </div>
-
-            <div>
-                <label for="in-jumlah-keluar" class="input-label">Nominal (Rp)</label>
-                <input id="in-jumlah-keluar" class="input-control" type="text" inputmode="numeric" placeholder="Rp 0" oninput="formatRupiahInput(this)">
-            </div>
-
-            <button class="btn btn-danger" onclick="tambahPengeluaran()">+ Simpan Pengeluaran</button>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ========================= STATUS KK ========================= -->
-<section id="tab-kk" class="tab-content hidden">
-    <div class="card">
+    <!-- TAB: STATUS KK -->
+    <section id="tab-kk" class="tab-content hidden">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Status Iuran Kepala Keluarga</div>
+                    <div class="card-subtitle" id="kk-period-text">Memuat status iuran...</div>
+                </div>
+            </div>
+            <div style="margin-bottom:10px">
+                <select id="kk-month" class="input-control" onchange="renderKKStatus()"></select>
+            </div>
+            <div id="kk-container" class="kk-grid"></div>
+        </div>
+    </section>
+
+    <!-- TAB: KELOLA WARGA (CRUD) -->
+    <section id="tab-warga" class="tab-content hidden">
+        <div class="card role-editor-only hidden">
+            <div class="card-header"><div class="card-title">Tambah Kepala Keluarga</div></div>
+            <div class="form-group">
+                <input id="in-warga-nama" class="input-control" type="text" placeholder="Nama Kepala Keluarga">
+                <button class="btn btn-primary" onclick="tambahWarga()">+ Tambah Data Warga</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div class="card-title">Daftar Kepala Keluarga RT 06</div></div>
+            <div id="warga-list-container"></div>
+        </div>
+    </section>
+
+    <!-- TABEL TRANSAKSI KAS -->
+    <section id="section-table" class="card hidden">
         <div class="card-header">
-            <div>
-                <div class="card-title">Status Iuran Kepala Keluarga</div>
-                <div class="card-subtitle" id="kk-period-text">Memuat status iuran...</div>
+            <div class="card-title" id="transaction-title">Riwayat Pemasukan</div>
+            <div style="display:flex;gap:4px">
+                <button class="btn btn-gold btn-sm" onclick="downloadLaporanPDF()">📄 PDF</button>
+                <button class="btn btn-light btn-sm" onclick="downloadLaporanCSV()">📊 Excel</button>
             </div>
         </div>
 
-        <div style="margin-bottom:10px">
-            <label for="kk-month" class="input-label">Pilih Bulan</label>
-            <select id="kk-month" class="input-control" onchange="renderKKStatus()"></select>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px">
+            <select id="filter-bulan" class="input-control" onchange="renderData()">
+                <option value="all">Semua Bulan</option>
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+            </select>
+            <input id="search-input" class="input-control" type="text" placeholder="🔍 Cari..." oninput="renderData()">
         </div>
 
-        <div id="kk-container" class="kk-grid"></div>
-    </div>
-</section>
-
-<!-- ========================= TABEL TRANSAKSI ========================= -->
-<section id="section-table" class="card hidden">
-    <div class="card-header">
-        <div>
-            <div class="card-title" id="transaction-title">Riwayat Pemasukan</div>
-            <div class="card-subtitle">Daftar pencatatan kas RT 06</div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Transaksi</th>
+                        <th>Jumlah</th>
+                        <th>Opsi</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
         </div>
-        <button class="btn btn-gold btn-sm" onclick="downloadLaporanPDF()">📄 PDF</button>
-    </div>
+        <div id="last-sync" class="sync-info">Belum sinkronisasi</div>
+    </section>
 
-    <div class="search-box">
-        <span>🔍</span>
-        <input id="search-input" class="input-control" type="text" placeholder="Cari transaksi..." oninput="renderData()">
-    </div>
+    <!-- CHART -->
+    <section id="section-chart" class="card hidden">
+        <div class="card-header"><div class="card-title">Alokasi Pengeluaran</div></div>
+        <div class="chart-box">
+            <canvas id="expenseChart"></canvas>
+        </div>
+    </section>
 
-    <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Tanggal</th>
-                    <th>Transaksi</th>
-                    <th>Jumlah</th>
-                    <th>Opsi</th>
-                </tr>
-            </thead>
-            <tbody id="table-body"></tbody>
-        </table>
-    </div>
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <button id="nav-info" class="nav-item active" onclick="switchNav('info')">
+            <span style="font-size:16px">📢</span><span>Informasi</span>
+        </button>
+        <button id="nav-surat" class="nav-item" onclick="switchNav('surat')">
+            <span style="font-size:16px">📄</span><span>E-Surat</span>
+        </button>
+        <button id="nav-masuk" class="nav-item" onclick="switchNav('masuk')">
+            <span style="font-size:16px">📥</span><span>Masuk</span>
+        </button>
+        <button id="nav-keluar" class="nav-item" onclick="switchNav('keluar')">
+            <span style="font-size:16px">📤</span><span>Keluar</span>
+        </button>
+        <button id="nav-kk" class="nav-item" onclick="switchNav('kk')">
+            <span style="font-size:16px">🏠</span><span>Status KK</span>
+        </button>
+    </nav>
+</main>
 
-    <div id="last-sync" class="sync-info">Belum sinkronisasi</div>
-</section>
+<!-- ================= SCREEN 2: HALAMAN LOGIN DEDIKASI ================= -->
+<main id="screen-login" class="view-screen">
+    <div class="login-screen">
+        <div class="login-card">
+            <div class="login-hero">🔑</div>
+            <h2 style="font-size:1.15rem;font-weight:800;margin-bottom:4px">Login Pengurus RT 06</h2>
+            <p style="font-size:.68rem;color:var(--muted);margin-bottom:20px">Masukkan akun pengurus untuk menginput kas & mengelola data</p>
 
-<!-- CHART -->
-<section id="section-chart" class="card hidden">
-    <div class="card-header">
-        <div>
-            <div class="card-title">Alokasi Pengeluaran</div>
-            <div class="card-subtitle">Distribusi penggunaan kas berdasarkan kategori</div>
+            <div class="form-group" style="text-align:left" id="login-form-box">
+                <div>
+                    <label class="input-label">Username</label>
+                    <input id="login-user" class="input-control" type="text" autocomplete="username" placeholder="Username pengurus">
+                </div>
+                <div>
+                    <label class="input-label">Password</label>
+                    <input id="login-pass" class="input-control" type="password" autocomplete="current-password" placeholder="Password akun">
+                </div>
+                <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="handleLogin()">Masuk Dasbor</button>
+                <button class="btn btn-light" style="width:100%" onclick="showScreen('screen-portal')">← Kembali ke Portal Warga</button>
+            </div>
         </div>
     </div>
-    <div class="chart-box">
-        <canvas id="expenseChart"></canvas>
-    </div>
-</section>
+</main>
 
 </div>
 
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-    <button id="nav-info" class="nav-item active" onclick="switchNav('info')">
-        <span class="nav-icon">📢</span>
-        <span>Informasi</span>
-    </button>
-
-    <button id="nav-surat" class="nav-item" onclick="switchNav('surat')">
-        <span class="nav-icon">📄</span>
-        <span>E-Surat</span>
-    </button>
-
-    <button id="nav-masuk" class="nav-item" onclick="switchNav('masuk')">
-        <span class="nav-icon">📥</span>
-        <span>Masuk</span>
-    </button>
-
-    <button id="nav-keluar" class="nav-item" onclick="switchNav('keluar')">
-        <span class="nav-icon">📤</span>
-        <span>Keluar</span>
-    </button>
-
-    <button id="nav-kk" class="nav-item" onclick="switchNav('kk')">
-        <span class="nav-icon">🏠</span>
-        <span>Status KK</span>
-    </button>
-</nav>
-
 <script>
 /* =========================================================
-   KONFIGURASI
+   KONFIGURASI & STATE
 ========================================================= */
 const CONFIG = {
     API_URL: "https://script.google.com/macros/s/AKfycby0YjtywpDJLTMhgMY1E8wNKyOERIvwYfcUrf8EaikXdqQnMmiZeamdoVqSk9ZkcIg/exec",
     WA_RT: "6281234567890",
-    CACHE_KAS: "rt06_kas_cache_v2",
-    CACHE_PENGUMUMAN: "rt06_pengumuman_v2",
-    OFFLINE_QUEUE: "rt06_offline_queue_v1",
-    SESSION: "rt06_user_session",
+    CACHE_KAS: "rt06_kas_cache_v3",
+    CACHE_PENGUMUMAN: "rt06_pengumuman_v3",
+    OFFLINE_QUEUE: "rt06_offline_queue_v3",
+    SESSION: "rt06_user_session_v3",
     THEME: "rt06_theme"
 };
 
-/* =========================================================
-   MASTER DATA FALLBACK
-========================================================= */
 const MASTER_WARGA_KK = [
     "Pak RT 06", "Pak Budi", "Pak Joko", "Pak Santoso", 
-    "Pak Agus", "Pak Hendra", "Bu Siti", "Pak Rian", 
-    "Pak Bambang", "Pak Eko"
+    "Pak Agus", "Pak Hendra", "Bu Siti", "Pak Rian", "Pak Bambang", "Pak Eko"
 ];
 
-/* =========================================================
-   STATE
-========================================================= */
 let currentUser = null;
 let expenseChart = null;
 
@@ -1262,24 +536,9 @@ let state = {
     loading: false
 };
 
-/* =========================================================
-   PENGUMUMAN DEFAULT
-========================================================= */
 const DEFAULT_PENGUMUMAN = [
-    {
-        id: "p1",
-        judul: "Kerja Bakti Kebersihan Lingkungan RT 06",
-        kategori: "Kerja Bakti",
-        tanggal: "12/10/2026",
-        isi: "Diharapkan kehadiran Bapak/Ibu warga RT 06 untuk kerja bakti pembersihan selokan jelang musim hujan pada Hari Minggu, pukul 07.00 WIB di Lapangan RT."
-    },
-    {
-        id: "p2",
-        judul: "Pelaksanaan Posyandu Balita & Lansia",
-        kategori: "Posyandu & Kesehatan",
-        tanggal: "05/10/2026",
-        isi: "Posyandu rutin bulanan akan dilaksanakan di Balai RT 06 pada Hari Rabu pukul 09.00 WIB. Harap membawa buku KIA."
-    }
+    { id: "p1", judul: "Kerja Bakti Kebersihan Lingkungan RT 06", kategori: "Kerja Bakti", tanggal: "12/10/2026", isi: "Diharapkan kehadiran Bapak/Ibu warga RT 06 untuk kerja bakti pembersihan selokan jelang musim hujan pada Hari Minggu, pukul 07.00 WIB." },
+    { id: "p2", judul: "Pelaksanaan Posyandu Balita & Lansia", kategori: "Posyandu & Kesehatan", tanggal: "05/10/2026", isi: "Posyandu rutin bulanan akan dilaksanakan di Balai RT 06 pada Hari Rabu pukul 09.00 WIB." }
 ];
 
 let pengumumanData = loadPengumuman();
@@ -1300,6 +559,7 @@ window.addEventListener("load", async () => {
     updateConnectionStatus();
     renderData();
     renderKKStatus();
+    renderWargaList();
     
     await fetchCloudData();
     await processOfflineQueue();
@@ -1307,189 +567,51 @@ window.addEventListener("load", async () => {
 
 window.addEventListener("online", async () => {
     updateConnectionStatus();
-    showToast("Koneksi internet kembali. Sinkronisasi antrean...", "🟢");
+    showToast("Koneksi kembali online. Menyinkronkan...", "🟢");
     await processOfflineQueue();
     await fetchCloudData();
 });
 
 window.addEventListener("offline", () => {
     updateConnectionStatus();
-    showToast("Mode offline aktif. Data baru akan masuk antrean.", "📡");
+    showToast("Mode offline aktif.", "📡");
 });
 
 /* =========================================================
-   CONNECTION
+   SCREEN & NAV SYSTEM
 ========================================================= */
-function updateConnectionStatus(){
-    const dot = document.getElementById("connection-dot");
-    const text = document.getElementById("connection-text");
-    if(!dot || !text) return;
-
-    if(navigator.onLine){
-        dot.className = "status-dot online";
-        text.innerText = "Online";
-    }else{
-        dot.className = "status-dot offline";
-        text.innerText = "Offline · Mode Antrean";
-    }
+function showScreen(screenId) {
+    document.querySelectorAll('.view-screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
 }
 
-/* =========================================================
-   UTILITIES & SANITIZATION
-========================================================= */
-function vibrate(ms = 15){
-    if("vibrate" in navigator){
-        try{ navigator.vibrate(ms); }catch(e){}
-    }
-}
+function switchNav(tab){
+    state.currentTab = tab;
 
-function escapeHtml(value){
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-}
+    document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
+    document.querySelectorAll(".section-tab").forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
 
-function normalizeName(value){
-    return String(value || "").trim().replace(/\s+/g," ").toLowerCase();
-}
+    const content = document.getElementById("tab-" + tab);
+    if(content) content.classList.remove("hidden");
 
-function parseRupiah(value){
-    return Number(String(value || "").replace(/[^0-9]/g,"")) || 0;
-}
+    const topBtn = document.getElementById("tab-button-" + tab);
+    if(topBtn) topBtn.classList.add("active");
 
-function formatRp(value){
-    return "Rp " + Number(value || 0).toLocaleString("id-ID");
-}
+    const bottomBtn = document.getElementById("nav-" + tab);
+    if(bottomBtn) bottomBtn.classList.add("active");
 
-function formatRupiahInput(el){
-    const value = parseRupiah(el.value);
-    el.value = value ? "Rp " + value.toLocaleString("id-ID") : "";
-}
+    const isKas = (tab === "masuk" || tab === "keluar");
+    document.getElementById("section-table").classList.toggle("hidden", !isKas);
+    document.getElementById("section-chart").classList.toggle("hidden", tab !== "keluar");
 
-function maskIdentifier(str){
-    if(!str || str.length < 6) return "****************";
-    return str.substring(0, 4) + "****************";
-}
-
-function getTanggalIndonesia(){
-    const now = new Date();
-    const dd = String(now.getDate()).padStart(2,"0");
-    const mm = String(now.getMonth()+1).padStart(2,"0");
-    const yyyy = now.getFullYear();
-    return `${dd}/${mm}/${yyyy}`;
-}
-
-function tanggalMasukBulan(tanggal, periode){
-    if(!tanggal) return false;
-    const parts = String(tanggal).split("/");
-    if(parts.length !== 3){
-        const d = new Date(tanggal);
-        if(!isNaN(d.getTime())){
-            const p = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
-            return p === periode;
-        }
-        return false;
-    }
-    return `${parts[2]}-${parts[1]}` === periode;
-}
-
-/* =========================================================
-   UI FEEDBACK (TOAST, LOADER, SHAKE)
-========================================================= */
-function showToast(message, icon="✓"){
-    const toast = document.getElementById("toast");
-    document.getElementById("toast-icon").innerText = icon;
-    document.getElementById("toast-msg").innerText = message;
-    toast.classList.add("show");
-
-    clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2800);
-}
-
-function showLoader(show, message){
-    const loader = document.getElementById("loader");
-    const loaderText = document.getElementById("loader-text");
-    if(message && loaderText){
-        loaderText.innerText = "⏳ " + message;
-    }
-    loader.classList.toggle("hidden", !show);
-}
-
-function triggerShake(id){
-    const el = document.getElementById(id);
-    if(!el) return;
-    el.animate([
-        {transform:"translateX(0)"},
-        {transform:"translateX(-6px)"},
-        {transform:"translateX(6px)"},
-        {transform:"translateX(-4px)"},
-        {transform:"translateX(0)"}
-    ], { duration: 350 });
-    vibrate([30,50,30]);
-}
-
-/* =========================================================
-   THEME & CONFIG
-========================================================= */
-function toggleTheme(){
-    document.body.classList.toggle("dark");
-    localStorage.setItem(CONFIG.THEME, document.body.classList.contains("dark") ? "dark" : "light");
-}
-
-function applySavedTheme(){
-    if(localStorage.getItem(CONFIG.THEME) === "dark"){
-        document.body.classList.add("dark");
-    }
-}
-
-function configureLinks(){
-    const link = document.getElementById("wa-rt-link");
-    if(link) link.href = "https://wa.me/" + CONFIG.WA_RT;
-}
-
-function populateWargaDatalist(){
-    const datalist = document.getElementById("warga-list");
-    if(!datalist) return;
-    datalist.innerHTML = "";
-    state.warga.forEach(warga => {
-        const option = document.createElement("option");
-        option.value = warga;
-        datalist.appendChild(option);
-    });
-    const quick = document.getElementById("quick-kk");
-    if(quick) quick.innerText = state.warga.length + " KK";
+    renderData();
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 /* =========================================================
    AUTH LOGIC
 ========================================================= */
-function openModalLogin(){
-    document.getElementById("modal-login").classList.add("show");
-    setTimeout(() => { document.getElementById("login-user")?.focus(); }, 200);
-}
-
-function closeModalLogin(){
-    document.getElementById("modal-login").classList.remove("show");
-}
-
-function closeLoginOutside(event){
-    if(event.target.id === "modal-login") closeModalLogin();
-}
-
-document.addEventListener("keydown", (event) => {
-    const modal = document.getElementById("modal-login");
-    if(event.key === "Escape" && modal.classList.contains("show")) closeModalLogin();
-    if(event.key === "Enter" && modal.classList.contains("show")){
-        const active = document.activeElement;
-        if(active.id === "login-user" || active.id === "login-pass") handleLogin();
-    }
-});
-
 async function handleLogin(){
     const username = document.getElementById("login-user").value.trim();
     const password = document.getElementById("login-pass").value.trim();
@@ -1508,7 +630,6 @@ async function handleLogin(){
             body: JSON.stringify({ action: "login", username, password })
         });
 
-        if(!response.ok) throw new Error("HTTP " + response.status);
         const data = await response.json();
 
         if(data.success){
@@ -1518,8 +639,8 @@ async function handleLogin(){
             document.getElementById("login-user").value = "";
             document.getElementById("login-pass").value = "";
 
-            closeModalLogin();
             updateRoleUI();
+            showScreen('screen-portal');
             showToast("Login pengurus berhasil", "✅");
         }else{
             triggerShake("login-form-box");
@@ -1536,9 +657,7 @@ function checkSession(){
     try{
         const saved = sessionStorage.getItem(CONFIG.SESSION);
         currentUser = saved ? JSON.parse(saved) : null;
-    }catch(error){
-        currentUser = null;
-    }
+    }catch(e){ currentUser = null; }
     updateRoleUI();
 }
 
@@ -1560,15 +679,15 @@ function updateRoleUI(){
     const roleText = document.getElementById("user-role-text");
 
     if(currentUser){
-        roleText.innerText = `${currentUser.name || "Pengurus"} · ${currentUser.role || "Pengurus"}`;
+        roleText.innerText = `${currentUser.name || "Pengurus"} (${currentUser.role || "Admin"})`;
         authBtn.innerText = "Keluar";
         authBtn.className = "btn btn-danger btn-sm";
-        authBtn.onclick = () => { vibrate(20); handleLogout(); };
+        authBtn.onclick = handleLogout;
     }else{
         roleText.innerText = "Pusat Informasi & Kas Warga";
-        authBtn.innerText = "🔑 Login";
+        authBtn.innerText = "🔑 Pengurus";
         authBtn.className = "btn btn-primary btn-sm";
-        authBtn.onclick = () => { vibrate(15); openModalLogin(); };
+        authBtn.onclick = () => showScreen('screen-login');
     }
 
     document.querySelectorAll(".role-editor-only").forEach(el => {
@@ -1577,6 +696,52 @@ function updateRoleUI(){
 
     renderPengumuman();
     renderData();
+    renderWargaList();
+}
+
+/* =========================================================
+   MANAJEMEN WARGA (CRUD)
+========================================================= */
+function renderWargaList() {
+    const container = document.getElementById("warga-list-container");
+    if(!container) return;
+
+    if(!state.warga.length){
+        container.innerHTML = `<div class="empty-state"><div class="empty-text">Belum ada data warga terdaftar.</div></div>`;
+        return;
+    }
+
+    container.innerHTML = state.warga.map((warga, idx) => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
+            <span style="font-size:.72rem;font-weight:800">🏠 ${escapeHtml(warga)}</span>
+            ${isEditor() ? `<button class="btn btn-danger btn-sm" style="padding:2px 8px" onclick="hapusWarga(${idx})">Hapus</button>` : ''}
+        </div>
+    `).join('');
+}
+
+function tambahWarga() {
+    if(!isEditor()) return showToast("Login pengurus diperlukan", "🔒");
+    const nama = document.getElementById("in-warga-nama").value.trim();
+    if(!nama) return showToast("Nama Kepala Keluarga wajib diisi!", "⚠️");
+
+    state.warga.push(nama);
+    populateWargaDatalist();
+    renderWargaList();
+    saveKasCache();
+
+    document.getElementById("in-warga-nama").value = "";
+    showToast("Data warga berhasil ditambahkan", "✅");
+}
+
+function hapusWarga(idx) {
+    if(!isEditor()) return;
+    if(!confirm("Yakin hapus warga ini dari daftar?")) return;
+
+    state.warga.splice(idx, 1);
+    populateWargaDatalist();
+    renderWargaList();
+    saveKasCache();
+    showToast("Warga telah dihapus", "🗑️");
 }
 
 /* =========================================================
@@ -1606,12 +771,7 @@ function renderPengumuman(){
     if(quick) quick.innerText = pengumumanData.length + " Agenda";
 
     if(!pengumumanData.length){
-        container.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-icon">📢</div>
-                <div class="empty-title">Belum ada pengumuman</div>
-                <div class="empty-text">Pengumuman RT akan muncul di sini.</div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><div class="empty-title">Belum ada pengumuman</div></div>`;
         return;
     }
 
@@ -1656,8 +816,7 @@ function tambahPengumuman(){
 
     document.getElementById("in-info-judul").value = "";
     document.getElementById("in-info-isi").value = "";
-
-    showToast("Pengumuman berhasil dipublikasikan", "📢");
+    showToast("Pengumuman dipublikasikan", "📢");
 }
 
 function hapusPengumuman(id){
@@ -1670,113 +829,7 @@ function hapusPengumuman(id){
 }
 
 /* =========================================================
-   E-SURAT LOGIC
-========================================================= */
-function kirimPermohonanSurat(){
-    const nama = document.getElementById("surat-nama").value.trim();
-    const nik = document.getElementById("surat-nik").value.trim();
-    const kk = document.getElementById("surat-kk").value.trim();
-    const jenis = document.getElementById("surat-jenis").value;
-    const keperluan = document.getElementById("surat-keperluan").value.trim();
-
-    if(!nama) return showToast("Nama lengkap wajib diisi", "⚠️");
-    if(!/^\d{16}$/.test(nik)) return showToast("NIK harus 16 digit angka", "⚠️");
-    if(kk && !/^\d{16}$/.test(kk)) return showToast("Nomor KK harus 16 digit angka", "⚠️");
-
-    const text = 
-        `*PERMOHONAN SURAT PENGANTAR RT 06*\n\n` +
-        `Kepada Yth. Ketua RT 06 / RW 01\n\n` +
-        `Nama Lengkap: *${nama}*\n` +
-        `NIK: *${maskIdentifier(nik)}*\n` +
-        `Nomor KK: *${kk ? maskIdentifier(kk) : "-"}*\n` +
-        `Jenis Surat: *${jenis}*\n` +
-        `Keperluan: _${keperluan || "Pengurusan administrasi"}_\n\n` +
-        `Mohon bantuannya untuk pembuatan Surat Pengantar RT.\n\n` +
-        `Terima kasih.`;
-
-    window.open("https://wa.me/" + CONFIG.WA_RT + "?text=" + encodeURIComponent(text), "_blank");
-    showToast("Permohonan siap dikirim ke WhatsApp", "📲");
-}
-
-/* =========================================================
-   CACHE & OFFLINE QUEUE SYSTEM
-========================================================= */
-function saveKasCache(){
-    const payload = {
-        riwayat: state.riwayat,
-        pengeluaran: state.pengeluaran,
-        warga: state.warga,
-        lastSync: state.lastSync
-    };
-    localStorage.setItem(CONFIG.CACHE_KAS, JSON.stringify(payload));
-}
-
-function loadCachedData(){
-    try{
-        const saved = localStorage.getItem(CONFIG.CACHE_KAS);
-        if(!saved) return;
-        const data = JSON.parse(saved);
-
-        if(Array.isArray(data.riwayat)) state.riwayat = data.riwayat;
-        if(Array.isArray(data.pengeluaran)) state.pengeluaran = data.pengeluaran;
-        if(Array.isArray(data.warga) && data.warga.length){
-            state.warga = data.warga;
-            populateWargaDatalist();
-        }
-        state.lastSync = data.lastSync || null;
-
-        renderData();
-        renderKKStatus();
-        updateLastSync();
-    }catch(error){
-        console.warn("Cache tidak dapat dibaca", error);
-    }
-}
-
-function loadOfflineQueue(){
-    try{
-        const saved = localStorage.getItem(CONFIG.OFFLINE_QUEUE);
-        state.pendingQueue = saved ? JSON.parse(saved) : [];
-    }catch(e){
-        state.pendingQueue = [];
-    }
-}
-
-function saveOfflineQueue(){
-    localStorage.setItem(CONFIG.OFFLINE_QUEUE, JSON.stringify(state.pendingQueue));
-}
-
-async function processOfflineQueue(){
-    if(!navigator.onLine || !state.pendingQueue.length) return;
-
-    showLoader(true, `Menyinkronkan ${state.pendingQueue.length} transaksi antrean...`);
-    const remainingQueue = [];
-
-    for(const item of state.pendingQueue){
-        try{
-            const res = await fetch(CONFIG.API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify(item)
-            });
-            const data = await res.json();
-            if(!res.ok || data.success === false) remainingQueue.push(item);
-        }catch(e){
-            remainingQueue.push(item);
-        }
-    }
-
-    state.pendingQueue = remainingQueue;
-    saveOfflineQueue();
-    showLoader(false);
-
-    if(!remainingQueue.length){
-        showToast("Seluruh antrean lokal terkirim!", "🟢");
-    }
-}
-
-/* =========================================================
-   API OPERATIONS (GET/POST)
+   API, SYNC & DATA KAS
 ========================================================= */
 async function fetchCloudData(){
     if(state.loading) return;
@@ -1784,11 +837,7 @@ async function fetchCloudData(){
     showLoader(true, "Menyinkronkan data...");
 
     try{
-        const response = await fetch(CONFIG.API_URL + "?t=" + Date.now(), {
-            method: "GET",
-            cache: "no-store"
-        });
-
+        const response = await fetch(CONFIG.API_URL + "?t=" + Date.now(), { method: "GET", cache: "no-store" });
         if(!response.ok) throw new Error("HTTP " + response.status);
         const data = await response.json();
 
@@ -1796,11 +845,9 @@ async function fetchCloudData(){
         state.pengeluaran = Array.isArray(data.pengeluaran) ? data.pengeluaran : [];
 
         if(Array.isArray(data.warga) && data.warga.length){
-            state.warga = data.warga.map(item => {
-                if(typeof item === "string") return item;
-                return item.nama || item.namaKK || item.kepalaKeluarga || "";
-            }).filter(Boolean);
+            state.warga = data.warga.map(i => typeof i === "string" ? i : (i.nama || i.namaKK || "")).filter(Boolean);
             populateWargaDatalist();
+            renderWargaList();
         }
 
         state.lastSync = new Date().toISOString();
@@ -1810,9 +857,7 @@ async function fetchCloudData(){
         updateLastSync();
         updateConnectionStatus();
     }catch(error){
-        console.error("Gagal mengambil data:", error);
         loadCachedData();
-        showToast("Server offline · Menggunakan data lokal", "📡");
     }finally{
         state.loading = false;
         showLoader(false);
@@ -1820,31 +865,21 @@ async function fetchCloudData(){
 }
 
 async function sendCloudPayload(payload){
-    if(!isEditor()){
-        showToast("Login pengurus diperlukan", "🔒");
-        return false;
-    }
+    if(!isEditor()) return showToast("Login pengurus diperlukan", "🔒");
 
-    // Jika Offline, Masukkan ke Antrean Lokal
     if(!navigator.onLine){
         state.pendingQueue.push(payload);
         saveOfflineQueue();
-
-        // Tampilkan secara optimis di UI lokal
-        if(payload.action === "tambah_iuran"){
-            state.riwayat.unshift({ ...payload, id: "temp_" + Date.now(), isPending: true });
-        }else if(payload.action === "tambah_pengeluaran"){
-            state.pengeluaran.unshift({ ...payload, id: "temp_" + Date.now(), isPending: true });
-        }
+        if(payload.action === "tambah_iuran") state.riwayat.unshift({ ...payload, id: "temp_" + Date.now(), isPending: true });
+        else if(payload.action === "tambah_pengeluaran") state.pengeluaran.unshift({ ...payload, id: "temp_" + Date.now(), isPending: true });
 
         saveKasCache();
         renderData();
-        renderKKStatus();
-        showToast("Tersimpan di antrean offline lokal", "📡");
+        showToast("Tersimpan offline di antrean", "📡");
         return true;
     }
 
-    showLoader(true, "Menyimpan data...");
+    showLoader(true, "Menyimpan...");
 
     try{
         const response = await fetch(CONFIG.API_URL, {
@@ -1852,20 +887,13 @@ async function sendCloudPayload(payload){
             headers: { "Content-Type": "text/plain;charset=utf-8" },
             body: JSON.stringify(payload)
         });
+        const data = await response.json();
+        if(data && data.success === false) throw new Error(data.message);
 
-        if(!response.ok) throw new Error("HTTP " + response.status);
-        let data = null;
-        try{ data = await response.json(); }catch(e){}
-
-        if(data && data.success === false){
-            throw new Error(data.message || "Server menolak data");
-        }
-
-        showToast("Data berhasil disimpan", "✅");
+        showToast("Data tersimpan", "✅");
         await fetchCloudData();
         return true;
-    }catch(error){
-        console.error(error);
+    }catch(e){
         showToast("Gagal menyimpan data", "❌");
         return false;
     }finally{
@@ -1873,141 +901,74 @@ async function sendCloudPayload(payload){
     }
 }
 
-/* =========================================================
-   TRANSACTION HANDLERS
-========================================================= */
 async function tambahPemasukan(){
-    if(!isEditor()) return showToast("Login pengurus diperlukan", "🔒");
-
     const nama = document.getElementById("in-nama").value.trim();
     const kategori = document.getElementById("in-kat-masuk").value;
     const jumlah = parseRupiah(document.getElementById("in-jumlah-masuk").value);
 
-    if(!nama || jumlah <= 0){
-        triggerShake("box-masuk");
-        return showToast("Nama warga & nominal wajib diisi", "⚠️");
-    }
+    if(!nama || jumlah <= 0) return showToast("Nama & nominal wajib diisi", "⚠️");
 
-    if(jumlah > 100000000) return showToast("Nominal terlalu besar", "⚠️");
-
-    const success = await sendCloudPayload({
-        action: "tambah_iuran",
-        nama,
-        kategori,
-        jumlah,
-        tanggal: getTanggalIndonesia()
-    });
-
-    if(success){
+    const ok = await sendCloudPayload({ action: "tambah_iuran", nama, kategori, jumlah, tanggal: getTanggalIndonesia() });
+    if(ok){
         document.getElementById("in-nama").value = "";
         document.getElementById("in-jumlah-masuk").value = "";
     }
 }
 
 async function tambahPengeluaran(){
-    if(!isEditor()) return showToast("Login pengurus diperlukan", "🔒");
-
     const keterangan = document.getElementById("in-ket").value.trim();
     const kategori = document.getElementById("in-kat-keluar").value;
     const jumlah = parseRupiah(document.getElementById("in-jumlah-keluar").value);
 
-    if(!keterangan || jumlah <= 0){
-        triggerShake("box-keluar");
-        return showToast("Keterangan & nominal wajib diisi", "⚠️");
-    }
+    if(!keterangan || jumlah <= 0) return showToast("Keterangan & nominal wajib diisi", "⚠️");
 
-    if(jumlah > 100000000) return showToast("Nominal terlalu besar", "⚠️");
-
-    const success = await sendCloudPayload({
-        action: "tambah_pengeluaran",
-        keterangan,
-        kategori,
-        jumlah,
-        tanggal: getTanggalIndonesia()
-    });
-
-    if(success){
+    const ok = await sendCloudPayload({ action: "tambah_pengeluaran", keterangan, kategori, jumlah, tanggal: getTanggalIndonesia() });
+    if(ok){
         document.getElementById("in-ket").value = "";
         document.getElementById("in-jumlah-keluar").value = "";
     }
 }
 
 async function hapusTransaksiItem(id, type){
-    if(!isEditor()) return showToast("Login pengurus diperlukan", "🔒");
-    if(!id) return showToast("ID transaksi tidak tersedia", "⚠️");
-
-    if(!confirm("Yakin ingin menghapus transaksi ini?")) return;
-
+    if(!confirm("Hapus transaksi ini?")) return;
     await sendCloudPayload({ action: "hapus_item", id, type });
 }
 
 /* =========================================================
-   NAVIGATION & RENDER
+   RENDER TRANSAKSI & STATUS KK
 ========================================================= */
-function switchNav(tab){
-    state.currentTab = tab;
-
-    document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
-    document.querySelectorAll(".section-tab").forEach(el => el.classList.remove("active"));
-    document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
-
-    const content = document.getElementById("tab-" + tab);
-    if(content) content.classList.remove("hidden");
-
-    const topButton = document.getElementById("tab-button-" + tab);
-    if(topButton) topButton.classList.add("active");
-
-    const bottomButton = document.getElementById("nav-" + tab);
-    if(bottomButton) bottomButton.classList.add("active");
-
-    const isKas = (tab === "masuk" || tab === "keluar");
-    document.getElementById("section-table").classList.toggle("hidden", !isKas);
-    document.getElementById("section-chart").classList.toggle("hidden", tab !== "keluar");
-
-    renderData();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
 function renderData(){
     const tbody = document.getElementById("table-body");
     if(!tbody) return;
 
-    const searchInput = document.getElementById("search-input");
-    const search = String(searchInput?.value || "").toLowerCase().trim();
+    const search = String(document.getElementById("search-input")?.value || "").toLowerCase().trim();
+    const filterBulan = document.getElementById("filter-bulan")?.value || "all";
 
-    const totalMasuk = state.riwayat.reduce((total, item) => total + Number(item.jumlah || 0), 0);
-    const totalKeluar = state.pengeluaran.reduce((total, item) => total + Number(item.jumlah || 0), 0);
-    const saldo = totalMasuk - totalKeluar;
+    const totalMasuk = state.riwayat.reduce((s, i) => s + Number(i.jumlah || 0), 0);
+    const totalKeluar = state.pengeluaran.reduce((s, i) => s + Number(i.jumlah || 0), 0);
 
     document.getElementById("stat-masuk").innerText = formatRp(totalMasuk);
     document.getElementById("stat-keluar").innerText = formatRp(totalKeluar);
-    document.getElementById("stat-saldo").innerText = formatRp(saldo);
+    document.getElementById("stat-saldo").innerText = formatRp(totalMasuk - totalKeluar);
     document.getElementById("quick-kk").innerText = state.warga.length + " KK";
 
     const isMasuk = (state.currentTab === "masuk");
     const dataset = isMasuk ? state.riwayat : state.pengeluaran;
 
     const filtered = dataset.filter(item => {
-        const text = isMasuk 
-            ? `${item.nama || ""} ${item.kategori || ""}`
-            : `${item.keterangan || ""} ${item.kategori || ""}`;
-        return text.toLowerCase().includes(search);
+        const text = isMasuk ? `${item.nama || ""} ${item.kategori || ""}` : `${item.keterangan || ""} ${item.kategori || ""}`;
+        const matchText = text.toLowerCase().includes(search);
+
+        if(filterBulan === "all") return matchText;
+        const parts = String(item.tanggal || "").split("/");
+        return matchText && (parts[1] === filterBulan);
     });
 
     document.getElementById("transaction-title").innerText = isMasuk ? "Riwayat Pemasukan" : "Riwayat Pengeluaran";
     tbody.innerHTML = "";
 
     if(!filtered.length){
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="4">
-                    <div class="empty-state">
-                        <div class="empty-icon">${isMasuk ? "📥" : "📤"}</div>
-                        <div class="empty-title">Belum Ada Transaksi</div>
-                        <div class="empty-text">Data pencatatan kas akan muncul di sini.</div>
-                    </div>
-                </td>
-            </tr>`;
+        tbody.innerHTML = `<tr><td colspan="4"><div class="empty-state"><div class="empty-text">Belum ada data transaksi.</div></div></td></tr>`;
     }else{
         filtered.forEach(item => {
             const title = isMasuk ? item.nama : item.keterangan;
@@ -2016,73 +977,48 @@ function renderData(){
 
             tr.innerHTML = `
                 <td>
-                    <span style="font-size:.6rem;font-weight:700">
-                        ${escapeHtml(item.tanggal || "-")}
-                    </span>
+                    <span style="font-size:.6rem;font-weight:700">${escapeHtml(item.tanggal || "-")}</span>
                     ${item.isPending ? '<br><span class="badge badge-pending">Offline</span>' : ''}
                 </td>
                 <td>
                     <div class="transaction-title">${escapeHtml(title || "-")}</div>
                     <div class="transaction-sub">${escapeHtml(item.kategori || "Umum")}</div>
                 </td>
+                <td><div class="amount ${isMasuk ? "masuk" : "keluar"}">${isMasuk ? "+" : "-"} ${formatRp(amount)}</div></td>
                 <td>
-                    <div class="amount ${isMasuk ? "masuk" : "keluar"}">
-                        ${isMasuk ? "+" : "-"} ${formatRp(amount)}
-                    </div>
-                </td>
-                <td>
-                    ${isMasuk ? `
-                        <button class="btn btn-light btn-sm" style="padding:4px 8px;font-size:.58rem"
-                            onclick="bagikanKwitansiWA('${escapeForJs(title)}','${escapeForJs(item.kategori)}','${amount}','${escapeForJs(item.tanggal)}')">
-                            📲
-                        </button>` : `<span class="badge badge-keluar">Pengeluaran</span>`}
+                    ${isMasuk ? `<button class="btn btn-light btn-sm" onclick="bagikanKwitansiWA('${escapeForJs(title)}','${escapeForJs(item.kategori)}','${amount}','${escapeForJs(item.tanggal)}')">📲</button>` : `<span class="badge badge-keluar">Keluar</span>`}
                 </td>
             `;
 
             if(isEditor() && item.id){
                 const td = tr.querySelector("td:last-child");
-                const deleteButton = document.createElement("button");
-                deleteButton.className = "btn btn-danger btn-sm";
-                deleteButton.style.cssText = "padding:2px 6px;font-size:.58rem;margin-left:4px";
-                deleteButton.innerText = "✕";
-                deleteButton.onclick = () => hapusTransaksiItem(item.id, isMasuk ? "riwayat" : "pengeluaran");
-                td.appendChild(deleteButton);
+                const btn = document.createElement("button");
+                btn.className = "btn btn-danger btn-sm";
+                btn.style.cssText = "padding:2px 6px;margin-left:4px";
+                btn.innerText = "✕";
+                btn.onclick = () => hapusTransaksiItem(item.id, isMasuk ? "riwayat" : "pengeluaran");
+                td.appendChild(btn);
             }
-
             tbody.appendChild(tr);
         });
     }
-
     updateChart();
 }
 
-function escapeForJs(value){
-    return String(value ?? "")
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'")
-        .replace(/\r/g," ")
-        .replace(/\n/g," ");
-}
-
-/* =========================================================
-   STATUS KK
-========================================================= */
 function initMonthSelector(){
     const select = document.getElementById("kk-month");
     if(!select) return;
 
     const now = new Date();
     select.innerHTML = "";
-
     for(let i=0; i<12; i++){
         const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
         const value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
         const label = d.toLocaleDateString("id-ID", { month: "long", year: "numeric" });
-
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = label;
-        select.appendChild(option);
+        const opt = document.createElement("option");
+        opt.value = value;
+        opt.textContent = label;
+        select.appendChild(opt);
     }
 }
 
@@ -2097,9 +1033,7 @@ function renderKKStatus(){
     state.warga.forEach(warga => {
         const paid = state.riwayat.some(item => {
             if(normalizeName(item.nama) !== normalizeName(warga)) return false;
-            const kat = String(item.kategori || "").trim().toLowerCase();
-            if(kat !== "iuran kas bulanan") return false;
-            return tanggalMasukBulan(item.tanggal, selected);
+            return (String(item.kategori||"").trim().toLowerCase() === "iuran kas bulanan") && tanggalMasukBulan(item.tanggal, selected);
         });
 
         if(paid) countLunas++;
@@ -2109,13 +1043,9 @@ function renderKKStatus(){
         card.innerHTML = `
             <div class="kk-top">
                 <div class="kk-name">${escapeHtml(warga)}</div>
-                <span class="badge ${paid ? "badge-masuk" : "badge-keluar"}">
-                    ${paid ? "LUNAS" : "BELUM"}
-                </span>
+                <span class="badge ${paid ? "badge-masuk" : "badge-keluar"}">${paid ? "LUNAS" : "BELUM"}</span>
             </div>
-            <div class="kk-month">
-                ${paid ? "Iuran kas bulanan tercatat" : "Belum ada pembayaran"}
-            </div>
+            <div class="kk-month">${paid ? "Iuran tercatat" : "Belum bayar"}</div>
         `;
         container.appendChild(card);
     });
@@ -2126,181 +1056,112 @@ function renderKKStatus(){
 }
 
 /* =========================================================
-   CHART
+   CHART & EXPORT (PDF + CSV)
 ========================================================= */
 function initChart(){
     const canvas = document.getElementById("expenseChart");
     if(!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    expenseChart = new Chart(ctx, {
+    expenseChart = new Chart(canvas.getContext("2d"), {
         type: "doughnut",
         data: {
             labels: ["Kebersihan", "Keamanan", "Pembangunan", "Operasional RT"],
-            datasets: [{
-                data: [0, 0, 0, 0],
-                backgroundColor: ["#556b2f", "#c59a20", "#8e6c16", "#c62828"],
-                borderWidth: 0
-            }]
+            datasets: [{ data: [0, 0, 0, 0], backgroundColor: ["#556b2f", "#c59a20", "#8e6c16", "#c62828"], borderWidth: 0 }]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: "68%",
-            plugins: {
-                legend: {
-                    position: "bottom",
-                    labels: { boxWidth: 10, padding: 12, font: { size: 10, family: "Plus Jakarta Sans" } }
-                }
-            }
-        }
+        options: { responsive: true, maintainAspectRatio: false, cutout: "68%", plugins: { legend: { position: "bottom" } } }
     });
 }
 
 function updateChart(){
     if(!expenseChart) return;
-    const categories = ["Kebersihan", "Keamanan", "Pembangunan", "Operasional RT"];
-
-    const totals = categories.map(category => {
-        return state.pengeluaran
-            .filter(item => String(item.kategori || "").trim().toLowerCase() === category.toLowerCase())
-            .reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
-    });
-
+    const cats = ["Kebersihan", "Keamanan", "Pembangunan", "Operasional RT"];
+    const totals = cats.map(c => state.pengeluaran.filter(i => String(i.kategori||"").toLowerCase() === c.toLowerCase()).reduce((s,i) => s + Number(i.jumlah||0), 0));
     expenseChart.data.datasets[0].data = totals;
     expenseChart.update();
 }
 
-/* =========================================================
-   KWITANSI & REPORTS
-========================================================= */
-function bagikanKwitansiWA(nama, kategori, jumlah, tanggal){
-    const ref = "INV-" + Math.floor(1000 + Math.random() * 9000);
-    const text = 
-        `*BUKTI PEMBAYARAN IURAN KAS RT 06*\n` +
-        `No. Ref: *${ref}*\n\n` +
-        `Diterima dari: *${nama}*\n` +
-        `Kategori: *${kategori}*\n` +
-        `Tanggal: *${tanggal}*\n` +
-        `Jumlah: *${formatRp(jumlah)}*\n` +
-        `Status: *SAH / LUNAS*\n\n` +
-        `_Terima kasih atas partisipasi dan kontribusinya untuk kemajuan lingkungan RT 06._`;
+function downloadLaporanCSV(){
+    let csv = "Jenis,Tanggal,Keterangan/Nama,Kategori,Nominal\n";
+    state.riwayat.forEach(r => csv += `MASUK,${r.tanggal},"${r.nama}",${r.kategori},${r.jumlah}\n`);
+    state.pengeluaran.forEach(p => csv += `KELUAR,${p.tanggal},"${p.keterangan}",${p.kategori},${p.jumlah}\n`);
 
-    window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
-}
-
-function updateLastSync(){
-    const el = document.getElementById("last-sync");
-    if(!el) return;
-
-    if(!state.lastSync){
-        el.innerText = "Belum ada sinkronisasi";
-        return;
-    }
-
-    const date = new Date(state.lastSync);
-    if(isNaN(date.getTime())){
-        el.innerText = "Data tersimpan lokal";
-        return;
-    }
-
-    el.innerText = "Sinkronisasi terakhir: " + date.toLocaleString("id-ID", {
-        day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"
-    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `Laporan_Kas_RT06_${getTanggalIndonesia().replace(/\//g,'-')}.csv`;
+    link.click();
+    showToast("File Excel (CSV) diunduh", "📊");
 }
 
 function downloadLaporanPDF(){
     if(!window.jspdf) return showToast("Library PDF belum siap", "⚠️");
-
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
-    const totalMasuk = state.riwayat.reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
-    const totalKeluar = state.pengeluaran.reduce((sum, item) => sum + Number(item.jumlah || 0), 0);
-    const saldo = totalMasuk - totalKeluar;
+    const totalMasuk = state.riwayat.reduce((s, i) => s + Number(i.jumlah || 0), 0);
+    const totalKeluar = state.pengeluaran.reduce((s, i) => s + Number(i.jumlah || 0), 0);
 
     let y = 18;
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
     doc.text("LAPORAN KEUANGAN KAS WARGA RT 06", 105, y, { align: "center" });
-
-    y += 6;
+    y += 8;
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
-    doc.text("Pusat Informasi & Transparansi Keuangan RT 06", 105, y, { align: "center" });
-
-    y += 4;
-    doc.setLineWidth(0.5);
-    doc.line(14, y, 196, y);
-
+    doc.text(`Sisa Saldo Kas: ${formatRp(totalMasuk - totalKeluar)}`, 14, y);
     y += 8;
-    doc.setFont("helvetica", "bold");
-    doc.text(`Sisa Saldo Kas: ${formatRp(saldo)}`, 14, y);
 
-    y += 5;
-    doc.setFont("helvetica", "normal");
-    doc.text(`Total Pemasukan: ${formatRp(totalMasuk)}   |   Total Pengeluaran: ${formatRp(totalKeluar)}`, 14, y);
-
-    y += 8;
-    doc.setFont("helvetica", "bold");
-    doc.text("RIWAYAT TRANSAKSI", 14, y);
-
-    y += 6;
-    doc.setFillColor(240, 240, 240);
-    doc.rect(14, y - 4, 182, 6, "F");
-    doc.setFontSize(8);
-    doc.text("Tanggal", 16, y);
-    doc.text("Keterangan", 45, y);
-    doc.text("Jenis", 130, y);
-    doc.text("Jumlah", 165, y);
-
-    y += 6;
-    doc.setFont("helvetica", "normal");
-
-    const transactions = [
-        ...state.riwayat.map(item => ({
-            tanggal: item.tanggal || "-", keterangan: item.nama || "-", jenis: "MASUK", jumlah: Number(item.jumlah || 0)
-        })),
-        ...state.pengeluaran.map(item => ({
-            tanggal: item.tanggal || "-", keterangan: item.keterangan || "-", jenis: "KELUAR", jumlah: Number(item.jumlah || 0)
-        }))
-    ];
-
-    if(!transactions.length){
-        doc.text("Belum ada transaksi recorded.", 16, y);
-    }
-
-    transactions.forEach(item => {
-        if(y > 275){
-            doc.addPage();
-            y = 18;
-        }
-
-        doc.text(String(item.tanggal).substring(0,10), 16, y);
-        doc.text(String(item.keterangan).substring(0, 36), 45, y);
-        doc.text(item.jenis, 130, y);
-        doc.text(formatRp(item.jumlah), 165, y);
-
-        y += 5;
+    const items = [...state.riwayat.map(r=>({t:r.tanggal, k:r.nama, j:'MASUK', m:r.jumlah})), ...state.pengeluaran.map(p=>({t:p.tanggal, k:p.keterangan, j:'KELUAR', m:p.jumlah}))];
+    items.forEach(item => {
+        if(y > 275) { doc.addPage(); y = 18; }
+        doc.text(`${item.t} | ${item.k} | ${item.j} | ${formatRp(item.m)}`, 14, y);
+        y += 6;
     });
 
-    doc.setFontSize(7);
-    doc.setTextColor(120, 120, 120);
-    doc.text(`Dicetak otomatis dari Portal Resmi RT 06 pada ${getTanggalIndonesia()}`, 105, 288, { align: "center" });
-
     doc.save("Laporan_Kas_RT06.pdf");
-    showToast("Laporan PDF berhasil diunduh", "📄");
+    showToast("Laporan PDF diunduh", "📄");
 }
 
 /* =========================================================
-   PERSISTENCE BEFORE UNLOAD
+   MISC & UTILS
 ========================================================= */
-window.addEventListener("beforeunload", () => {
-    saveKasCache();
-    saveOfflineQueue();
-});
-</script>
+function kirimPermohonanSurat(){
+    const nama = document.getElementById("surat-nama").value.trim();
+    const nik = document.getElementById("surat-nik").value.trim();
+    const jenis = document.getElementById("surat-jenis").value;
+    if(!nama || !nik) return showToast("Nama & NIK wajib diisi", "⚠️");
 
+    const text = `*PERMOHONAN SURAT PENGANTAR RT 06*\n\nNama: *${nama}*\nNIK: *${nik}*\nJenis: *${jenis}*`;
+    window.open("https://wa.me/" + CONFIG.WA_RT + "?text=" + encodeURIComponent(text), "_blank");
+}
+
+function bagikanKwitansiWA(nama, kat, jumlah, tgl){
+    const text = `*BUKTI PEMBAYARAN KAS RT 06*\nDiterima dari: *${nama}*\nKategori: *${kat}*\nNominal: *${formatRp(jumlah)}*\nTanggal: *${tgl}*`;
+    window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+}
+
+function saveKasCache(){ localStorage.setItem(CONFIG.CACHE_KAS, JSON.stringify({ riwayat: state.riwayat, pengeluaran: state.pengeluaran, warga: state.warga, lastSync: state.lastSync })); }
+function loadCachedData(){ try{ const d = JSON.parse(localStorage.getItem(CONFIG.CACHE_KAS)); if(d){ state.riwayat = d.riwayat||[]; state.pengeluaran = d.pengeluaran||[]; if(d.warga) state.warga = d.warga; populateWargaDatalist(); } }catch(e){} }
+function loadOfflineQueue(){ try{ state.pendingQueue = JSON.parse(localStorage.getItem(CONFIG.OFFLINE_QUEUE)) || []; }catch(e){} }
+function saveOfflineQueue(){ localStorage.setItem(CONFIG.OFFLINE_QUEUE, JSON.stringify(state.pendingQueue)); }
+async function processOfflineQueue(){ if(!navigator.onLine || !state.pendingQueue.length) return; const q = [...state.pendingQueue]; state.pendingQueue = []; saveOfflineQueue(); for(let item of q){ await sendCloudPayload(item); } }
+
+function updateConnectionStatus(){ const dot = document.getElementById("connection-dot"); const text = document.getElementById("connection-text"); if(!dot||!text)return; dot.className = navigator.onLine ? "status-dot online" : "status-dot offline"; text.innerText = navigator.onLine ? "Online" : "Offline"; }
+function populateWargaDatalist(){ const list = document.getElementById("warga-list"); if(list) list.innerHTML = state.warga.map(w => `<option value="${w}">`).join(''); }
+function updateLastSync(){ const el = document.getElementById("last-sync"); if(el && state.lastSync) el.innerText = "Sinkronisasi: " + new Date(state.lastSync).toLocaleString("id-ID"); }
+function toggleTheme(){ document.body.classList.toggle("dark"); localStorage.setItem(CONFIG.THEME, document.body.classList.contains("dark") ? "dark" : "light"); }
+function applySavedTheme(){ if(localStorage.getItem(CONFIG.THEME) === "dark") document.body.classList.add("dark"); }
+function configureLinks(){ const l = document.getElementById("wa-rt-link"); if(l) l.href = "https://wa.me/" + CONFIG.WA_RT; }
+function parseRupiah(v){ return Number(String(v||"").replace(/[^0-9]/g,"")) || 0; }
+function formatRp(v){ return "Rp " + Number(v||0).toLocaleString("id-ID"); }
+function formatRupiahInput(e){ const v = parseRupiah(e.value); e.value = v ? "Rp " + v.toLocaleString("id-ID") : ""; }
+function escapeHtml(v){ return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function escapeForJs(v){ return String(v??"").replace(/'/g,"\\'"); }
+function normalizeName(v){ return String(v||"").trim().toLowerCase(); }
+function getTanggalIndonesia(){ const d = new Date(); return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`; }
+function tanggalMasukBulan(tgl, p){ if(!tgl) return false; const parts = String(tgl).split("/"); return parts.length === 3 && `${parts[2]}-${parts[1]}` === p; }
+function showToast(msg, icon="✓"){ const t = document.getElementById("toast"); document.getElementById("toast-icon").innerText = icon; document.getElementById("toast-msg").innerText = msg; t.classList.add("show"); clearTimeout(window.toastTimer); window.toastTimer = setTimeout(()=>t.classList.remove("show"), 2500); }
+function showLoader(s, msg){ const l = document.getElementById("loader"); if(msg) document.getElementById("loader-text").innerText = "⏳ " + msg; l.classList.toggle("hidden", !s); }
+function triggerShake(id){ const el = document.getElementById(id); if(el) el.animate([{transform:"translateX(0)"},{transform:"translateX(-6px)"},{transform:"translateX(6px)"},{transform:"translateX(0)"}], {duration:300}); }
+</script>
 </body>
 </html>
-
